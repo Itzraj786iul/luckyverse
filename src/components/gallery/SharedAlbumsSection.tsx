@@ -17,6 +17,7 @@ import { useGalleryAlbums } from '../../lib/useGalleryAlbums';
 import { GALLERY_MAX_UPLOAD_BYTES } from '../../lib/galleryRemote';
 import type { GalleryPhoto } from '../../lib/galleryTypes';
 import { supabaseErrorMessage } from '../../lib/supabaseErrors';
+import { withUrlCacheBust } from '../../lib/storageUrl';
 
 function formatPhotoDate(iso: string) {
   try {
@@ -24,6 +25,40 @@ function formatPhotoDate(iso: string) {
   } catch {
     return iso;
   }
+}
+
+/** Retries image load with cache-bust (helps right after upload / CDN edge). */
+function StableStorageImg({
+  url,
+  bustKey,
+  alt,
+  className,
+}: {
+  url: string;
+  bustKey: string;
+  alt: string;
+  className?: string;
+}) {
+  const [bust, setBust] = useState(0);
+  const [fails, setFails] = useState(0);
+  const src = withUrlCacheBust(url, `${bustKey}-${bust}`);
+
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className={className}
+      loading="lazy"
+      onError={() => {
+        if (fails < 6) {
+          window.setTimeout(() => {
+            setFails((c) => c + 1);
+            setBust((b) => b + 1);
+          }, 300 * (fails + 1));
+        }
+      }}
+    />
+  );
 }
 
 export function SharedAlbumsSection() {
@@ -286,11 +321,11 @@ export function SharedAlbumsSection() {
                         onClick={() => setLightbox(p)}
                         className="relative block w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
                       >
-                        <img
-                          src={p.public_url}
+                        <StableStorageImg
+                          url={p.public_url}
+                          bustKey={p.id}
                           alt={p.caption || 'Album photo'}
                           className="aspect-square w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                          loading="lazy"
                         />
                         <span className="pointer-events-none absolute bottom-2 left-2 flex items-center gap-1 rounded-md bg-black/45 px-2 py-1 text-[10px] font-medium text-white opacity-0 transition-opacity group-hover:opacity-100">
                           <Maximize2 size={12} aria-hidden />
@@ -354,11 +389,16 @@ export function SharedAlbumsSection() {
                   <X size={22} />
                 </button>
               </div>
-              <img
-                src={lightbox.public_url}
+              <StableStorageImg
+                url={lightbox.public_url}
+                bustKey={lightbox.id}
                 alt={lightbox.caption || 'Shared album photo'}
                 className="max-h-[55vh] w-full rounded-xl object-contain bg-black/5"
               />
+              <p className="mt-2 text-xs text-gray-500">
+                If &ldquo;Open original&rdquo; errors once, wait a few seconds and try again — new files can take a
+                moment to show everywhere on the network.
+              </p>
               <dl className="mt-4 space-y-2 text-sm text-gray-700">
                 <div>
                   <dt className="text-xs font-semibold uppercase tracking-wide text-gray-500">Added</dt>
