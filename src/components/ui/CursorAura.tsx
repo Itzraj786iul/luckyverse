@@ -27,12 +27,12 @@ export function CursorAura() {
     <>
       <motion.div
         aria-hidden
-        className="pointer-events-none fixed left-0 top-0 z-[46] h-[min(55vw,420px)] w-[min(55vw,420px)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-tr from-fuchsia-400/25 via-violet-400/20 to-sky-300/20 blur-3xl mix-blend-soft-light"
+        className="pointer-events-none fixed left-0 top-0 z-[46] h-[min(55vw,420px)] w-[min(55vw,420px)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-tr from-cyan-400/28 via-violet-500/22 to-fuchsia-400/20 blur-3xl mix-blend-soft-light"
         style={{ left: sx, top: sy }}
       />
       <motion.div
         aria-hidden
-        className="pointer-events-none fixed left-0 top-0 z-[46] h-9 w-9 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/40 bg-white/25 shadow-[0_0_24px_rgba(168,85,247,0.35)] backdrop-blur-sm"
+        className="pointer-events-none fixed left-0 top-0 z-[46] h-9 w-9 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-200/50 bg-white/30 shadow-[0_0_28px_rgba(34,211,238,0.35),0_0_20px_rgba(139,92,246,0.25)] backdrop-blur-sm"
         style={{ left: sx, top: sy }}
       />
     </>

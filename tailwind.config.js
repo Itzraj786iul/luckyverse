@@ -14,6 +14,15 @@ export default {
           mint: '#F0FFFF',
           peach: '#FFEEE6',
         },
+        aurora: {
+          deep: '#0c1222',
+          ink: '#131c2e',
+          mist: '#e0f2fe',
+          bloom: '#ede9fe',
+          cyan: '#22d3ee',
+          violet: '#8b5cf6',
+          rose: '#fb7185',
+        },
         lv: {
           midnight: '#05070d',
           night: '#0a1018',
@@ -38,6 +47,7 @@ export default {
         sans: ['DM Sans', 'system-ui', 'sans-serif'],
         dancing: ['Dancing Script', 'cursive'],
         poppins: ['Poppins', 'sans-serif'],
+        outfit: ['Outfit', 'Poppins', 'system-ui', 'sans-serif'],
       },
       backgroundImage: {
         'lv-radial-fog':

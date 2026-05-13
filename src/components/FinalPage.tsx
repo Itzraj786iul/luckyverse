@@ -51,7 +51,7 @@ const FinalPage = () => {
           className="mb-12"
         >
           <Wand2 className="mx-auto mb-4 text-purple-600" size={48} />
-          <h1 className="text-4xl md:text-6xl font-dancing font-bold text-purple-700 mb-6">
+          <h1 className="lv-title-gradient mb-6 text-4xl font-dancing font-bold md:text-6xl">
             No pressure, just warmth
           </h1>
         </motion.div>
@@ -60,7 +60,7 @@ const FinalPage = () => {
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.8 }}
-          className="bg-white/50 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-2xl border border-white/40 mb-12"
+          className="lv-glass-panel lv-card-shine rounded-[2rem] p-8 shadow-2xl ring-1 ring-white/45 md:p-12 mb-12"
         >
           <div className="space-y-8">
             <motion.div

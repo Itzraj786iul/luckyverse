@@ -172,6 +172,33 @@ const Gallery = () => {
     { id: 'memories', label: 'Memories', icon: Home, color: 'green' }
   ];
 
+  const categoryFilterClasses: Record<string, { on: string; off: string }> = {
+    all: {
+      on: 'bg-purple-600 text-white shadow-lg ring-2 ring-purple-300/40',
+      off: 'bg-white/75 text-purple-700 hover:bg-purple-50/95',
+    },
+    personal: {
+      on: 'bg-rose-500 text-white shadow-lg ring-2 ring-rose-200/50',
+      off: 'bg-white/75 text-rose-700 hover:bg-rose-50/95',
+    },
+    peaceful: {
+      on: 'bg-sky-500 text-white shadow-lg ring-2 ring-sky-200/50',
+      off: 'bg-white/75 text-sky-700 hover:bg-sky-50/95',
+    },
+    academic: {
+      on: 'bg-indigo-600 text-white shadow-lg ring-2 ring-indigo-200/50',
+      off: 'bg-white/75 text-indigo-700 hover:bg-indigo-50/95',
+    },
+    comfort: {
+      on: 'bg-pink-500 text-white shadow-lg ring-2 ring-pink-200/50',
+      off: 'bg-white/75 text-pink-700 hover:bg-pink-50/95',
+    },
+    memories: {
+      on: 'bg-emerald-600 text-white shadow-lg ring-2 ring-emerald-200/50',
+      off: 'bg-white/75 text-emerald-700 hover:bg-emerald-50/95',
+    },
+  };
+
   const filteredItems = filter === 'all' ? galleryItems : galleryItems.filter(item => item.category === filter);
 
   const toggleLike = (imageId: number) => {
@@ -202,9 +229,9 @@ const Gallery = () => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="min-h-screen flex items-center justify-center"
+        className="min-h-screen flex items-center justify-center px-4"
       >
-        <div className="text-center">
+        <div className="lv-glass-panel lv-card-shine max-w-sm rounded-3xl px-10 py-12 text-center ring-1 ring-white/45">
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
@@ -231,59 +258,63 @@ const Gallery = () => {
         <motion.div
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          className="text-center mb-12"
+          className="lv-glass-panel lv-card-shine mx-auto mb-12 max-w-3xl rounded-[2rem] px-6 py-10 text-center ring-1 ring-white/45 md:px-12"
         >
-          <Camera className="mx-auto mb-4 text-purple-600 animate-bounce" size={48} />
-          <h1 className="text-4xl md:text-5xl font-dancing font-bold text-purple-700 mb-4">
+          <span className="lv-kicker mb-4 inline-block">Frames & mood</span>
+          <Camera className="mx-auto mb-4 text-purple-600" size={44} />
+          <h1 className="text-4xl md:text-5xl font-dancing font-bold text-purple-800 mb-3">
             Visual Stories
           </h1>
-          <p className="text-gray-600 mb-8">
+          <p className="text-gray-600 mb-8 text-balance">
             Preserved atmosphere — roads, nights, water, chai. Swap in your own photos whenever.
           </p>
-          
-          {/* View Mode Toggle */}
-          <div className="flex justify-center mb-6">
-            <div className="bg-white/60 backdrop-blur-sm rounded-full p-1 border border-white/40">
+
+          <div className="mb-8 flex justify-center">
+            <div className="inline-flex rounded-full bg-white/55 p-1 ring-1 ring-white/50 backdrop-blur-md">
               <button
+                type="button"
                 onClick={() => setViewMode('grid')}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                  viewMode === 'grid' ? 'bg-purple-500 text-white' : 'text-purple-600'
+                className={`rounded-full px-5 py-2 text-sm font-medium transition-all ${
+                  viewMode === 'grid'
+                    ? 'bg-purple-600 text-white shadow-md'
+                    : 'text-purple-700 hover:bg-white/70'
                 }`}
               >
-                Grid View
+                Grid
               </button>
               <button
+                type="button"
                 onClick={() => setViewMode('masonry')}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                  viewMode === 'masonry' ? 'bg-purple-500 text-white' : 'text-purple-600'
+                className={`rounded-full px-5 py-2 text-sm font-medium transition-all ${
+                  viewMode === 'masonry'
+                    ? 'bg-purple-600 text-white shadow-md'
+                    : 'text-purple-700 hover:bg-white/70'
                 }`}
               >
-                Masonry View
+                Masonry
               </button>
             </div>
           </div>
-          
-          {/* Filter buttons */}
-          <div className="flex flex-wrap justify-center gap-3 mb-8">
+
+          <div className="flex flex-wrap justify-center gap-2.5">
             {categories.map((category) => {
               const Icon = category.icon;
+              const tone = categoryFilterClasses[category.id] ?? categoryFilterClasses.all;
+              const active = filter === category.id;
               return (
                 <motion.button
                   key={category.id}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  type="button"
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.96 }}
                   onClick={() => setFilter(category.id)}
-                  className={`flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                    filter === category.id
-                      ? `bg-${category.color}-500 text-white shadow-lg`
-                      : `bg-white/60 text-${category.color}-600 hover:bg-${category.color}-50`
-                  } backdrop-blur-sm border border-white/30`}
+                  className={`flex items-center space-x-2 rounded-full border border-white/35 px-4 py-2 text-sm font-medium backdrop-blur-sm transition-colors ${
+                    active ? tone.on : tone.off
+                  }`}
                 >
                   <Icon size={16} />
                   <span>{category.label}</span>
-                  {category.id === 'personal' && (
-                    <Star size={14} className="text-yellow-400" />
-                  )}
+                  {category.id === 'personal' && <Star size={14} className="text-yellow-300" />}
                 </motion.button>
               );
             })}
@@ -310,108 +341,117 @@ const Gallery = () => {
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ delay: index * 0.1, type: 'spring', stiffness: 280, damping: 24 }}
                 whileHover={{
-                  y: -10,
-                  scale: 1.02,
-                  rotateX: 1.5,
-                  rotateY: index % 2 === 0 ? -2 : 2,
-                  boxShadow: '0 24px 48px rgba(124,58,237,0.15)',
+                  y: -12,
+                  scale: 1.025,
+                  rotateX: 2.5,
+                  rotateY: index % 2 === 0 ? -3 : 3,
+                  boxShadow: '0 28px 56px rgba(124,58,237,0.22)',
                 }}
-                className={`bg-white/60 backdrop-blur-sm rounded-2xl overflow-hidden shadow-xl border border-white/40 cursor-pointer group relative [transform-style:preserve-3d] ${
+                className={`lv-glass-panel lv-card-shine cursor-pointer overflow-hidden rounded-2xl shadow-xl ring-1 ring-white/40 transition-shadow duration-300 group relative [transform-style:preserve-3d] hover:shadow-[0_20px_60px_rgba(139,92,246,0.18)] ${
                   viewMode === 'masonry' && index % 3 === 1 ? 'row-span-2' : ''
-                } ${item.isPersonal ? 'ring-2 ring-rose-300 ring-opacity-50' : ''}`}
+                } ${item.isPersonal ? 'ring-2 ring-rose-300/60' : ''}`}
               >
-                {/* Personal Photo Badge */}
-                {item.isPersonal && (
-                  <div className="absolute top-3 left-3 z-10 bg-rose-500 text-white px-2 py-1 rounded-full text-xs font-medium flex items-center space-x-1">
-                    <User size={12} />
-                    <span>Luckyverse</span>
-                  </div>
-                )}
+                <CardSpotlight className="flex min-h-0 flex-col rounded-2xl">
+                  {item.isPersonal && (
+                    <div className="absolute top-3 left-3 z-20 flex items-center space-x-1 rounded-full bg-rose-500 px-2 py-1 text-xs font-medium text-white">
+                      <User size={12} />
+                      <span>Luckyverse</span>
+                    </div>
+                  )}
 
-                {/* Like Button */}
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggleLike(item.id);
-                  }}
-                  className="absolute top-3 right-3 z-10 p-2 rounded-full bg-white/80 backdrop-blur-sm hover:bg-white transition-colors"
-                >
-                  <Heart 
-                    size={16} 
-                    className={`${
-                      likedImages.includes(item.id) 
-                        ? 'text-red-500 fill-current' 
-                        : 'text-gray-600'
-                    } transition-colors`}
-                  />
-                </motion.button>
-
-                <div 
-                  className="relative overflow-hidden"
-                  onClick={() => setSelectedImage(item.id)}
-                >
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className={`w-full object-cover transition-transform duration-500 group-hover:scale-110 ${
-                      viewMode === 'masonry' && index % 3 === 1 ? 'h-80' : 'h-64'
-                    }`}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileHover={{ opacity: 1, y: 0 }}
-                    className="absolute bottom-4 left-4 right-4 text-white"
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleLike(item.id);
+                    }}
+                    className="absolute top-3 right-3 z-20 rounded-full bg-white/85 p-2 backdrop-blur-sm transition-colors hover:bg-white"
                   >
-                    <h3 className="font-semibold text-lg mb-1">{item.title}</h3>
-                    <p className="text-sm opacity-90 line-clamp-2">{item.description}</p>
-                    {item.location && (
-                      <p className="text-xs opacity-75 mt-1">📍 {item.location}</p>
-                    )}
-                  </motion.div>
-                </div>
-                
-                <div className="p-6">
-                  <div className="flex items-start justify-between mb-2">
-                    <h3 className="text-xl font-semibold text-gray-800 group-hover:text-purple-700 transition-colors flex-1">
-                      {item.title}
-                    </h3>
-                    {likedImages.includes(item.id) && (
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        className="text-red-500"
-                      >
-                        <Heart size={16} className="fill-current" />
-                      </motion.div>
-                    )}
-                  </div>
-                  
-                  <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                    {item.description}
-                  </p>
-                  
-                  <div className="flex items-center justify-between">
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                      item.category === 'personal' ? 'bg-rose-100 text-rose-600' :
-                      item.category === 'peaceful' ? 'bg-blue-100 text-blue-600' :
-                      item.category === 'academic' ? 'bg-indigo-100 text-indigo-600' :
-                      item.category === 'comfort' ? 'bg-pink-100 text-pink-600' :
-                      'bg-green-100 text-green-600'
-                    }`}>
-                      {item.category}
-                    </span>
-                    
-                    <div className="flex items-center space-x-2">
-                      {item.date && (
-                        <span className="text-xs text-gray-500">{item.date}</span>
+                    <Heart
+                      size={16}
+                      className={`${
+                        likedImages.includes(item.id)
+                          ? 'fill-current text-red-500'
+                          : 'text-gray-600'
+                      } transition-colors`}
+                    />
+                  </motion.button>
+
+                  <div
+                    className="relative z-[2] overflow-hidden"
+                    onClick={() => setSelectedImage(item.id)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setSelectedImage(item.id);
+                      }
+                    }}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className={`w-full object-cover transition-transform duration-500 group-hover:scale-110 ${
+                        viewMode === 'masonry' && index % 3 === 1 ? 'h-80' : 'h-64'
+                      }`}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileHover={{ opacity: 1, y: 0 }}
+                      className="absolute bottom-4 left-4 right-4 z-[2] text-white"
+                    >
+                      <h3 className="mb-1 text-lg font-semibold">{item.title}</h3>
+                      <p className="line-clamp-2 text-sm opacity-90">{item.description}</p>
+                      {item.location && (
+                        <p className="mt-1 text-xs opacity-75">📍 {item.location}</p>
                       )}
-                      <Sparkles size={16} className="text-purple-400 group-hover:text-purple-600 transition-colors" />
+                    </motion.div>
+                  </div>
+
+                  <div className="flex flex-1 flex-col p-6">
+                    <div className="mb-2 flex items-start justify-between">
+                      <h3 className="flex-1 text-xl font-semibold text-gray-800 transition-colors group-hover:text-purple-700">
+                        {item.title}
+                      </h3>
+                      {likedImages.includes(item.id) && (
+                        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="text-red-500">
+                          <Heart size={16} className="fill-current" />
+                        </motion.div>
+                      )}
+                    </div>
+
+                    <p className="mb-4 flex-1 text-sm leading-relaxed text-gray-600">{item.description}</p>
+
+                    <div className="mt-auto flex items-center justify-between">
+                      <span
+                        className={`rounded-full px-3 py-1 text-xs font-medium ${
+                          item.category === 'personal'
+                            ? 'bg-rose-100 text-rose-600'
+                            : item.category === 'peaceful'
+                              ? 'bg-sky-100 text-sky-700'
+                              : item.category === 'academic'
+                                ? 'bg-indigo-100 text-indigo-600'
+                                : item.category === 'comfort'
+                                  ? 'bg-pink-100 text-pink-600'
+                                  : 'bg-emerald-100 text-emerald-700'
+                        }`}
+                      >
+                        {item.category}
+                      </span>
+
+                      <div className="flex items-center space-x-2">
+                        {item.date && <span className="text-xs text-gray-500">{item.date}</span>}
+                        <Sparkles
+                          size={16}
+                          className="text-purple-400 transition-colors group-hover:text-purple-600"
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
+                </CardSpotlight>
               </motion.div>
             ))}
           </AnimatePresence>
@@ -424,7 +464,7 @@ const Gallery = () => {
           transition={{ delay: 0.5 }}
           className="text-center mt-8"
         >
-          <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-4 max-w-md mx-auto">
+          <div className="lv-glass-panel lv-card-shine mx-auto max-w-md rounded-2xl p-5 ring-1 ring-white/40">
             <div className="flex justify-center space-x-6 text-sm">
               <div className="text-center">
                 <div className="font-bold text-purple-600">{filteredItems.length}</div>
@@ -459,7 +499,7 @@ const Gallery = () => {
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.8, opacity: 0 }}
                 onClick={(e) => e.stopPropagation()}
-                className="bg-white/95 backdrop-blur-sm rounded-3xl max-w-5xl w-full max-h-[90vh] overflow-hidden shadow-2xl border border-white/50"
+                className="lv-glass-panel max-w-5xl w-full max-h-[90vh] overflow-hidden rounded-[2rem] shadow-2xl ring-1 ring-white/50"
               >
                 <div className="relative">
                   <button
@@ -573,7 +613,7 @@ const Gallery = () => {
           transition={{ delay: 1 }}
           className="text-center mt-12"
         >
-          <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-6 max-w-2xl mx-auto">
+          <div className="lv-glass-panel lv-card-shine mx-auto max-w-2xl rounded-[1.75rem] p-6 text-center ring-1 ring-white/40">
             <BookOpen className="mx-auto mb-4 text-purple-500" size={24} />
             <p className="text-gray-600 italic mb-2">
               These are placeholders for mood — replace with your real frames when you want.

@@ -55,8 +55,10 @@ const Navigation = () => {
   return (
     <motion.nav
       layout
-      className={`fixed top-0 left-0 right-0 z-50 border-b border-white/40 lv-glass-panel transition-shadow duration-500 ${
-        scrolled ? 'shadow-[0_16px_48px_rgba(124,58,237,0.14)]' : 'shadow-none'
+      className={`fixed top-0 left-0 right-0 z-50 border-b border-cyan-200/25 border-white/30 bg-gradient-to-b from-white/55 to-white/35 lv-glass-panel transition-shadow duration-500 ${
+        scrolled
+          ? 'shadow-[0_20px_50px_rgba(14,116,144,0.12),0_12px_40px_rgba(124,58,237,0.1)]'
+          : 'shadow-none'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -66,7 +68,7 @@ const Navigation = () => {
             animate={{ opacity: 1, x: 0 }}
             className="flex-shrink-0"
           >
-            <Link to="/" className="text-2xl font-dancing font-bold text-purple-600">
+            <Link to="/" className="lv-title-gradient text-2xl font-dancing font-bold drop-shadow-sm">
               Luckyverse 🌸
             </Link>
           </motion.div>
@@ -90,10 +92,10 @@ const Navigation = () => {
                       whileHover={{ y: -2, scale: 1.04 }}
                       whileTap={{ scale: 0.97 }}
                       transition={{ type: 'spring', stiffness: 420, damping: 24 }}
-                      className={`flex items-center space-x-1 px-3 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
+                      className={`flex items-center space-x-1 rounded-full px-3 py-2 text-sm font-medium transition-colors duration-300 ${
                         isActive
-                          ? 'bg-purple-100 text-purple-700 shadow-md ring-1 ring-purple-200/60'
-                          : 'text-gray-600 hover:text-purple-600 hover:bg-purple-50/90'
+                          ? 'bg-gradient-to-r from-cyan-100/90 to-violet-100/90 text-indigo-900 shadow-md ring-1 ring-cyan-300/40'
+                          : 'text-slate-600 hover:bg-cyan-50/80 hover:text-indigo-800'
                       }`}
                     >
                       <Icon size={16} />
@@ -108,7 +110,7 @@ const Navigation = () => {
                 <div className="relative" ref={moreRef}>
                   <button
                     onClick={() => setShowMore(!showMore)}
-                    className="flex items-center space-x-1 px-3 py-2 rounded-full text-sm font-medium text-gray-600 hover:text-purple-600 hover:bg-purple-50 transition-all"
+                    className="flex items-center space-x-1 rounded-full px-3 py-2 text-sm font-medium text-slate-600 transition-all hover:bg-cyan-50/80 hover:text-indigo-800"
                   >
                     <Wand2 size={16} />
                     <span>More</span>
@@ -125,10 +127,10 @@ const Navigation = () => {
                             onClick={() => setShowMore(false)}
                             whileHover={{ x: -2, backgroundColor: 'rgba(243,232,255,0.95)' }}
                             whileTap={{ scale: 0.98 }}
-                            className={`flex items-center space-x-2 px-4 py-2 text-sm rounded-lg transition-colors ${
+                            className={`flex items-center space-x-2 rounded-lg px-4 py-2 text-sm transition-colors ${
                               isActive
-                                ? 'bg-purple-100 text-purple-700'
-                                : 'text-gray-600 hover:text-purple-600 hover:bg-purple-50'
+                                ? 'bg-cyan-50 text-indigo-900'
+                                : 'text-slate-600 hover:bg-cyan-50/90 hover:text-indigo-800'
                             }`}
                           >
                             <Icon size={16} />
@@ -147,7 +149,7 @@ const Navigation = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-purple-600 hover:bg-purple-100 focus:outline-none transition-colors"
+              className="inline-flex items-center justify-center rounded-md p-2 text-cyan-800 transition-colors hover:bg-cyan-100/80 focus:outline-none"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -172,10 +174,10 @@ const Navigation = () => {
                   onClick={() => setIsOpen(false)}
                   whileHover={{ x: 4 }}
                   whileTap={{ scale: 0.98 }}
-                  className={`flex items-center space-x-2 px-3 py-2 rounded-md text-base font-medium transition-all duration-300 ${
+                  className={`flex items-center space-x-2 rounded-md px-3 py-2 text-base font-medium transition-all duration-300 ${
                     isActive
-                      ? 'bg-purple-100 text-purple-700'
-                      : 'text-gray-600 hover:text-purple-600 hover:bg-purple-50'
+                      ? 'bg-gradient-to-r from-cyan-100 to-violet-100 text-indigo-900'
+                      : 'text-slate-600 hover:bg-cyan-50/90 hover:text-indigo-800'
                   }`}
                 >
                   <Icon size={18} />

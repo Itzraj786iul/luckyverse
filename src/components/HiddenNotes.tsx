@@ -26,11 +26,30 @@ const HiddenNotes = () => {
   ];
 
   const categories = [
-    { id: 'all', label: 'All Notes', color: 'purple' },
-    { id: 'deep', label: 'Deep', color: 'indigo' },
-    { id: 'calm', label: 'Calm', color: 'blue' },
-    { id: 'funny', label: 'Light', color: 'pink' }
+    { id: 'all', label: 'All Notes' },
+    { id: 'deep', label: 'Deep' },
+    { id: 'calm', label: 'Calm' },
+    { id: 'funny', label: 'Light' },
   ];
+
+  const noteFilterTone: Record<string, { on: string; off: string }> = {
+    all: {
+      on: 'bg-purple-600 text-white shadow-lg ring-2 ring-purple-300/40',
+      off: 'bg-white/75 text-purple-700 hover:bg-purple-50/95',
+    },
+    deep: {
+      on: 'bg-indigo-600 text-white shadow-lg ring-2 ring-indigo-200/45',
+      off: 'bg-white/75 text-indigo-700 hover:bg-indigo-50/95',
+    },
+    calm: {
+      on: 'bg-sky-500 text-white shadow-lg ring-2 ring-sky-200/45',
+      off: 'bg-white/75 text-sky-700 hover:bg-sky-50/95',
+    },
+    funny: {
+      on: 'bg-pink-500 text-white shadow-lg ring-2 ring-pink-200/45',
+      off: 'bg-white/75 text-pink-700 hover:bg-pink-50/95',
+    },
+  };
 
   const filteredNotes = filter === 'all' ? notes : notes.filter(note => note.category === filter);
 
@@ -49,45 +68,47 @@ const HiddenNotes = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="min-h-screen px-4 py-20 bg-gradient-to-b from-white via-purple-50 to-white"
+      className="min-h-screen px-4 py-20"
     >
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
         <motion.div
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          className="text-center mb-12"
+          className="lv-glass-panel lv-card-shine mx-auto mb-12 max-w-2xl rounded-[2rem] px-6 py-10 text-center ring-1 ring-white/45"
         >
-          <Sparkles className="mx-auto mb-4 text-purple-600 animate-bounce" size={48} />
-          <h1 className="text-5xl font-dancing font-bold text-purple-700 mb-2">Hidden Notes</h1>
-          <p className="text-gray-600 mb-6">Click sparkles to reveal heartfelt messages ✨</p>
+          <span className="lv-kicker mb-4 inline-block">Tap to reveal</span>
+          <Sparkles className="mx-auto mb-4 text-purple-600" size={44} />
+          <h1 className="mb-2 text-4xl font-dancing font-bold text-purple-800 md:text-5xl">Hidden Notes</h1>
+          <p className="mb-8 text-gray-600">Click sparkles to reveal messages — filters keep the noise kind ✨</p>
 
-          {/* Filter Buttons */}
-          <div className="flex flex-wrap justify-center gap-3 mb-6">
-            {categories.map((cat) => (
-              <motion.button
-                key={cat.id}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setFilter(cat.id)}
-                className={clsx(
-                  "px-4 py-2 rounded-full text-sm font-medium transition-all backdrop-blur-sm border border-white/30",
-                  filter === cat.id
-                    ? `bg-${cat.color}-500 text-white shadow-lg`
-                    : `bg-white/60 text-${cat.color}-600 hover:bg-${cat.color}-100`
-                )}
-              >
-                <Filter size={16} className="inline mr-2" />
-                {cat.label}
-              </motion.button>
-            ))}
+          <div className="mb-2 flex flex-wrap justify-center gap-2.5">
+            {categories.map((cat) => {
+              const tone = noteFilterTone[cat.id] ?? noteFilterTone.all;
+              const active = filter === cat.id;
+              return (
+                <motion.button
+                  key={cat.id}
+                  type="button"
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.96 }}
+                  onClick={() => setFilter(cat.id)}
+                  className={clsx(
+                    'rounded-full border border-white/35 px-4 py-2 text-sm font-medium backdrop-blur-sm transition-colors',
+                    active ? tone.on : tone.off
+                  )}
+                >
+                  <Filter size={16} className="mr-2 inline" />
+                  {cat.label}
+                </motion.button>
+              );
+            })}
           </div>
 
-          {/* Reset Button */}
           {revealedNotes.length > 0 && (
             <button
+              type="button"
               onClick={resetRevealed}
-              className="text-sm mt-2 underline text-purple-500 hover:text-purple-700"
+              className="mt-3 text-sm text-purple-600 underline decoration-purple-300 underline-offset-4 hover:text-purple-800"
             >
               Reset discovered notes
             </button>
@@ -95,7 +116,7 @@ const HiddenNotes = () => {
         </motion.div>
 
         {/* Notes Canvas */}
-        <div className="relative h-screen bg-white/20 backdrop-blur-lg rounded-3xl border border-white/30 overflow-hidden">
+        <div className="relative h-screen overflow-hidden rounded-[2rem] lv-glass-panel ring-1 ring-white/40">
           <div 
             className="absolute inset-0 opacity-10"
             style={{

@@ -18,7 +18,8 @@ import { AppShell } from './components/layout/AppShell';
 function App() {
   return (
     <Router>
-      <div className="lv-app-shell min-h-screen font-poppins relative overflow-x-hidden lv-grain selection:bg-purple-200/60 selection:text-purple-900">
+      <div className="lv-app-shell lv-theme-aurora min-h-screen font-outfit text-slate-800 antialiased relative overflow-x-hidden lv-grain selection:bg-cyan-200/55 selection:text-slate-900">
+        <div className="relative z-[1] min-h-dvh">
         <Routes>
           <Route element={<AppShell />}>
             <Route path="/" element={<WelcomePage />} />
@@ -60,6 +61,7 @@ function App() {
             <Route path="/final" element={<FinalPage />} />
           </Route>
         </Routes>
+        </div>
       </div>
     </Router>
   );

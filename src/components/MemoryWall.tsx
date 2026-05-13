@@ -114,13 +114,14 @@ const MemoryWall = () => {
         <motion.div
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          className="text-center mb-12"
+          className="lv-glass-panel lv-card-shine mx-auto mb-12 max-w-2xl rounded-[2rem] px-6 py-10 text-center ring-1 ring-white/45"
         >
-          <Camera className="mx-auto mb-4 text-purple-600" size={48} />
-          <h1 className="text-4xl md:text-5xl font-dancing font-bold text-purple-700 mb-4">
+          <span className="lv-kicker mb-4 inline-block">Sticky thoughts</span>
+          <Camera className="mx-auto mb-4 text-purple-600" size={44} />
+          <h1 className="text-4xl md:text-5xl font-dancing font-bold text-purple-800 mb-3">
             Memory Wall
           </h1>
-          <p className="text-gray-600">Little thoughts collected just for you</p>
+          <p className="text-gray-600 text-balance">Little thoughts collected just for you</p>
         </motion.div>
 
         <div className="grid gap-8">

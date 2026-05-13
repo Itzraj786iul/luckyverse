@@ -33,7 +33,7 @@ const FloatingParticles = () => {
           }}
         >
           <div
-            className="rounded-full bg-gradient-to-r from-purple-300 to-pink-300"
+            className="rounded-full bg-gradient-to-r from-cyan-300/90 via-violet-400/85 to-fuchsia-400/80 shadow-[0_0_12px_rgba(34,211,238,0.35)]"
             style={{
               width: particle.size,
               height: particle.size,
