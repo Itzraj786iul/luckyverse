@@ -8,6 +8,7 @@ import {
   uploadGalleryPhoto,
 } from './galleryRemote';
 import { isSupabaseConfigured } from './supabaseClient';
+import { supabaseErrorMessage } from './supabaseErrors';
 
 export function useGalleryAlbums() {
   const [albums, setAlbums] = useState<GalleryAlbum[]>([]);
@@ -26,8 +27,7 @@ export function useGalleryAlbums() {
       const data = await fetchAlbumsWithPhotos();
       setAlbums(data);
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Could not load shared albums');
-      setAlbums([]);
+      setError(supabaseErrorMessage(e) || 'Could not load shared albums');
     } finally {
       setLoading(false);
     }

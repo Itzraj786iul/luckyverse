@@ -8,8 +8,23 @@ import {
   X,
   Cloud,
   AlertCircle,
+  ChevronDown,
+  ChevronUp,
+  Copy,
+  Maximize2,
 } from 'lucide-react';
 import { useGalleryAlbums } from '../../lib/useGalleryAlbums';
+import { GALLERY_MAX_UPLOAD_BYTES } from '../../lib/galleryRemote';
+import type { GalleryPhoto } from '../../lib/galleryTypes';
+import { supabaseErrorMessage } from '../../lib/supabaseErrors';
+
+function formatPhotoDate(iso: string) {
+  try {
+    return new Date(iso).toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'short' });
+  } catch {
+    return iso;
+  }
+}
 
 export function SharedAlbumsSection() {
   const headingId = useId();
@@ -22,12 +37,26 @@ export function SharedAlbumsSection() {
   const [activeAlbumId, setActiveAlbumId] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   const [inlineErr, setInlineErr] = useState<string | null>(null);
+  const [uploadCaption, setUploadCaption] = useState('');
+  const [showDetails, setShowDetails] = useState(false);
+  const [lightbox, setLightbox] = useState<GalleryPhoto | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
+
+  const maxMb = Math.round(GALLERY_MAX_UPLOAD_BYTES / (1024 * 1024));
 
   useEffect(() => {
     if (activeAlbumId) return;
     if (albums.length > 0) setActiveAlbumId(albums[0].id);
   }, [albums, activeAlbumId]);
+
+  useEffect(() => {
+    if (!lightbox) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setLightbox(null);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [lightbox]);
 
   const activeAlbum = albums.find((a) => a.id === activeAlbumId) ?? null;
   const photos = activeAlbum?.gallery_photos ?? [];
@@ -47,7 +76,7 @@ export function SharedAlbumsSection() {
       setActiveAlbumId(album.id);
       closeAlbumModal();
     } catch (e) {
-      setInlineErr(e instanceof Error ? e.message : 'Could not create album');
+      setInlineErr(supabaseErrorMessage(e));
     } finally {
       setSavingAlbum(false);
     }
@@ -60,9 +89,10 @@ export function SharedAlbumsSection() {
     setUploading(true);
     setInlineErr(null);
     try {
-      await uploadPhoto(activeAlbumId, file);
+      await uploadPhoto(activeAlbumId, file, uploadCaption.trim() || undefined);
+      setUploadCaption('');
     } catch (e) {
-      setInlineErr(e instanceof Error ? e.message : 'Upload failed');
+      setInlineErr(supabaseErrorMessage(e));
     } finally {
       setUploading(false);
     }
@@ -103,8 +133,35 @@ export function SharedAlbumsSection() {
           <p className="mt-2 max-w-xl text-sm leading-relaxed text-gray-600">
             Create an album, then add photos — they upload to shared storage so both of you see the same gallery.
           </p>
+          <button
+            type="button"
+            onClick={() => setShowDetails((v) => !v)}
+            className="mt-3 flex items-center gap-1 text-sm font-medium text-purple-700 underline decoration-purple-200 underline-offset-2 hover:text-purple-900"
+          >
+            {showDetails ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            Limits · how uploads work
+          </button>
+          {showDetails && (
+            <div className="mt-2 max-w-xl rounded-xl bg-white/70 p-4 text-left text-xs leading-relaxed text-gray-700 ring-1 ring-purple-100/80">
+              <ul className="list-inside list-disc space-y-1.5">
+                <li>
+                  <strong>Per photo:</strong> up to <strong>{maxMb} MB</strong> (JPEG, PNG, WebP, GIF). Larger files are
+                  blocked before upload; Supabase may also enforce a project max in Dashboard → Storage.
+                </li>
+                <li>
+                  <strong>Bucket:</strong> <code className="rounded bg-violet-100/80 px-1">luckyverse-gallery</code> — public URLs so the site can show thumbnails.
+                </li>
+                <li>
+                  <strong>Optional caption</strong> below is saved with the next upload only.
+                </li>
+                <li>
+                  Tap a photo for a <strong>larger view</strong>, full caption, date, and copy link.
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-col gap-3 md:items-end">
           <motion.button
             type="button"
             whileHover={{ scale: 1.02 }}
@@ -133,6 +190,17 @@ export function SharedAlbumsSection() {
             className="hidden"
             onChange={onFile}
           />
+          <div className="w-full max-w-xs">
+            <p className="text-xs font-medium uppercase tracking-wide text-gray-500">Caption for next photo</p>
+            <input
+              type="text"
+              value={uploadCaption}
+              onChange={(e) => setUploadCaption(e.target.value)}
+              maxLength={500}
+              placeholder="Optional — e.g. home, no filter"
+              className="mt-1 w-full rounded-xl border border-slate-200 bg-white/90 px-3 py-2 text-sm text-slate-900 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-200/40"
+            />
+          </div>
         </div>
       </div>
 
@@ -213,15 +281,26 @@ export function SharedAlbumsSection() {
                       key={p.id}
                       className="group relative overflow-hidden rounded-xl bg-white/40 ring-1 ring-white/50"
                     >
-                      <img
-                        src={p.public_url}
-                        alt={p.caption || 'Album photo'}
-                        className="aspect-square w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                        loading="lazy"
-                      />
                       <button
                         type="button"
-                        onClick={() => {
+                        onClick={() => setLightbox(p)}
+                        className="relative block w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+                      >
+                        <img
+                          src={p.public_url}
+                          alt={p.caption || 'Album photo'}
+                          className="aspect-square w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                          loading="lazy"
+                        />
+                        <span className="pointer-events-none absolute bottom-2 left-2 flex items-center gap-1 rounded-md bg-black/45 px-2 py-1 text-[10px] font-medium text-white opacity-0 transition-opacity group-hover:opacity-100">
+                          <Maximize2 size={12} aria-hidden />
+                          View details
+                        </span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={(ev) => {
+                          ev.stopPropagation();
                           if (window.confirm('Remove this photo from the shared album?')) {
                             void removePhoto(p.id, p.storage_path);
                           }
@@ -242,6 +321,86 @@ export function SharedAlbumsSection() {
           )}
         </div>
       )}
+
+      <AnimatePresence>
+        {lightbox && (
+          <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Photo details"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
+            onMouseDown={(e) => {
+              if (e.target === e.currentTarget) setLightbox(null);
+            }}
+          >
+            <motion.div
+              initial={{ scale: 0.94, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.94, opacity: 0 }}
+              className="max-h-[92vh] w-full max-w-3xl overflow-y-auto rounded-2xl bg-white p-4 shadow-2xl ring-1 ring-white/30 sm:p-6"
+              onMouseDown={(e) => e.stopPropagation()}
+            >
+              <div className="mb-3 flex items-start justify-between gap-2">
+                <h3 className="font-dancing text-xl font-bold text-purple-800 sm:text-2xl">Photo details</h3>
+                <button
+                  type="button"
+                  onClick={() => setLightbox(null)}
+                  className="rounded-full p-2 text-gray-500 hover:bg-gray-100"
+                  aria-label="Close"
+                >
+                  <X size={22} />
+                </button>
+              </div>
+              <img
+                src={lightbox.public_url}
+                alt={lightbox.caption || 'Shared album photo'}
+                className="max-h-[55vh] w-full rounded-xl object-contain bg-black/5"
+              />
+              <dl className="mt-4 space-y-2 text-sm text-gray-700">
+                <div>
+                  <dt className="text-xs font-semibold uppercase tracking-wide text-gray-500">Added</dt>
+                  <dd>{formatPhotoDate(lightbox.created_at)}</dd>
+                </div>
+                {lightbox.caption ? (
+                  <div>
+                    <dt className="text-xs font-semibold uppercase tracking-wide text-gray-500">Caption</dt>
+                    <dd className="whitespace-pre-wrap leading-relaxed">{lightbox.caption}</dd>
+                  </div>
+                ) : (
+                  <p className="text-sm italic text-gray-500">No caption for this photo.</p>
+                )}
+                <div>
+                  <dt className="text-xs font-semibold uppercase tracking-wide text-gray-500">Direct link</dt>
+                  <dd className="break-all font-mono text-xs text-violet-800">{lightbox.public_url}</dd>
+                </div>
+              </dl>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    void navigator.clipboard.writeText(lightbox.public_url);
+                  }}
+                  className="inline-flex items-center gap-2 rounded-full bg-violet-100 px-4 py-2 text-sm font-medium text-violet-900 ring-1 ring-violet-200/80 hover:bg-violet-200/80"
+                >
+                  <Copy size={16} />
+                  Copy link
+                </button>
+                <a
+                  href={lightbox.public_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-gray-800 ring-1 ring-gray-200 hover:bg-gray-50"
+                >
+                  Open original
+                </a>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <AnimatePresence>
         {albumModal && (

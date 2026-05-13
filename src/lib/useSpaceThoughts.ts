@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import type { SpaceThought } from './spaceThoughtsRemote';
 import { fetchSpaceThoughts, insertSpaceThought, subscribeSpaceThoughts } from './spaceThoughtsRemote';
 import { isSupabaseConfigured } from './supabaseClient';
+import { supabaseErrorMessage } from './supabaseErrors';
 
 export function useSpaceThoughts() {
   const [thoughts, setThoughts] = useState<SpaceThought[]>([]);
@@ -20,8 +21,7 @@ export function useSpaceThoughts() {
       const rows = await fetchSpaceThoughts();
       setThoughts(rows);
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Could not load messages');
-      setThoughts([]);
+      setError(supabaseErrorMessage(e) || 'Could not load messages');
     } finally {
       setLoading(false);
     }
@@ -40,8 +40,17 @@ export function useSpaceThoughts() {
 
   const sendThought = useCallback(
     async (body: string) => {
-      await insertSpaceThought(body);
-      await refresh();
+      const row = await insertSpaceThought(body);
+      setThoughts((prev) => {
+        if (prev.some((t) => t.id === row.id)) return prev;
+        return [row, ...prev];
+      });
+      setError(null);
+      try {
+        await refresh();
+      } catch {
+        /* list already updated optimistically */
+      }
     },
     [refresh],
   );

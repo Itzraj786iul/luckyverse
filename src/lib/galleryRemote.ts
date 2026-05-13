@@ -1,7 +1,11 @@
 import { getSupabaseClient } from './supabaseClient';
+import { supabaseErrorMessage } from './supabaseErrors';
 import type { GalleryAlbum, GalleryPhoto } from './galleryTypes';
 
 export const GALLERY_BUCKET = 'luckyverse-gallery';
+
+/** Max file size for gallery uploads (client check). Supabase project may enforce a lower cap in Dashboard. */
+export const GALLERY_MAX_UPLOAD_BYTES = 50 * 1024 * 1024;
 
 type PhotoRow = {
   id: string;
@@ -63,7 +67,7 @@ export async function fetchAlbumsWithPhotos(): Promise<GalleryAlbum[]> {
     `,
     )
     .order('created_at', { ascending: false });
-  if (error) throw error;
+  if (error) throw new Error(supabaseErrorMessage(error));
   return ((data ?? []) as AlbumRow[]).map(normalizeAlbum);
 }
 
@@ -77,7 +81,7 @@ export async function createAlbum(title: string): Promise<GalleryAlbum> {
     .insert({ title: trimmed })
     .select('id, title, created_at')
     .single();
-  if (error) throw error;
+  if (error) throw new Error(supabaseErrorMessage(error));
   return {
     id: data.id,
     title: data.title,
@@ -92,8 +96,11 @@ export async function uploadGalleryPhoto(albumId: string, file: File, caption?: 
   const sb = getSupabaseClient();
   if (!sb) throw new Error('Supabase is not configured');
   if (!file.type.startsWith('image/')) throw new Error('Please choose an image file');
-  const maxBytes = 12 * 1024 * 1024;
-  if (file.size > maxBytes) throw new Error('Image must be 12MB or smaller');
+  if (file.size > GALLERY_MAX_UPLOAD_BYTES) {
+    throw new Error(
+      `Image must be ${Math.round(GALLERY_MAX_UPLOAD_BYTES / (1024 * 1024))}MB or smaller (your file is ${(file.size / (1024 * 1024)).toFixed(1)}MB).`,
+    );
+  }
 
   const rawExt = file.name.split('.').pop()?.toLowerCase() || 'jpg';
   const ext = ALLOWED_EXT.has(rawExt) ? rawExt : 'jpg';
@@ -104,7 +111,7 @@ export async function uploadGalleryPhoto(albumId: string, file: File, caption?: 
     cacheControl: '3600',
     upsert: false,
   });
-  if (upErr) throw upErr;
+  if (upErr) throw new Error(supabaseErrorMessage(upErr));
 
   const { data: pub } = sb.storage.from(GALLERY_BUCKET).getPublicUrl(path);
   const publicUrl = pub.publicUrl;
@@ -119,7 +126,7 @@ export async function uploadGalleryPhoto(albumId: string, file: File, caption?: 
     })
     .select('id, album_id, storage_path, public_url, caption, created_at')
     .single();
-  if (rowErr) throw rowErr;
+  if (rowErr) throw new Error(supabaseErrorMessage(rowErr));
   return normalizePhoto(row as PhotoRow);
 }
 
@@ -127,9 +134,9 @@ export async function deleteGalleryPhoto(photoId: string, storagePath: string): 
   const sb = getSupabaseClient();
   if (!sb) throw new Error('Supabase is not configured');
   const { error } = await sb.from('gallery_photos').delete().eq('id', photoId);
-  if (error) throw error;
+  if (error) throw new Error(supabaseErrorMessage(error));
   const { error: rmErr } = await sb.storage.from(GALLERY_BUCKET).remove([storagePath]);
-  if (rmErr) throw rmErr;
+  if (rmErr) throw new Error(supabaseErrorMessage(rmErr));
 }
 
 export function subscribeGallery(onChange: () => void): () => void {

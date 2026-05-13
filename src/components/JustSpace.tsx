@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Send, Heart, Inbox, Loader2, Cloud, AlertCircle } from 'lucide-react';
+import { Mail, Send, Heart, Inbox, Loader2, Cloud, AlertCircle, ChevronDown, ChevronUp } from 'lucide-react';
 import { useSpaceThoughts } from '../lib/useSpaceThoughts';
+import { supabaseErrorMessage } from '../lib/supabaseErrors';
 
 function formatWhen(iso: string) {
   try {
@@ -20,6 +21,7 @@ const JustSpace = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [sendError, setSendError] = useState<string | null>(null);
   const [justSent, setJustSent] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
 
   const { thoughts, loading, error, configured, sendThought, refresh } = useSpaceThoughts();
 
@@ -40,7 +42,7 @@ const JustSpace = () => {
       setJustSent(true);
       window.setTimeout(() => setJustSent(false), 4500);
     } catch (err) {
-      setSendError(err instanceof Error ? err.message : 'Could not send');
+      setSendError(supabaseErrorMessage(err));
     } finally {
       setIsSubmitting(false);
     }
@@ -65,6 +67,44 @@ const JustSpace = () => {
             Optional. Truly. Leave a thought if you want — it lands in the same thread below so it can actually be
             seen, not just swallowed by the void.
           </p>
+          <button
+            type="button"
+            onClick={() => setShowHelp((v) => !v)}
+            className="mx-auto mt-4 flex items-center gap-1 text-sm font-medium text-purple-700 underline decoration-purple-300 underline-offset-2 hover:text-purple-900"
+          >
+            {showHelp ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            How this works · if something fails
+          </button>
+          <AnimatePresence>
+            {showHelp && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                className="mx-auto mt-3 max-w-2xl overflow-hidden text-left text-sm text-gray-700"
+              >
+                <div className="rounded-2xl bg-white/70 p-4 ring-1 ring-purple-100/80">
+                  <ul className="list-inside list-disc space-y-2 leading-relaxed">
+                    <li>
+                      Messages are stored in your Supabase table <code className="rounded bg-violet-100/80 px-1">space_thoughts</code> — same project as the URL in{' '}
+                      <code className="rounded bg-violet-100/80 px-1">.env.local</code> / site config.
+                    </li>
+                    <li>
+                      If the inbox stays empty after sending, check the red error under the button, or Supabase → Table
+                      Editor → confirm rows appear in <code className="rounded bg-violet-100/80 px-1">space_thoughts</code>.
+                    </li>
+                    <li>
+                      The publishable key must allow <strong>insert</strong> and <strong>select</strong> (RLS policies in{' '}
+                      <code className="rounded bg-violet-100/80 px-1">.env.example</code>). If insert fails, use the <strong>anon</strong> JWT from Supabase → Settings → API instead.
+                    </li>
+                    <li>
+                      Supabase connected: {configured ? 'yes' : 'no'} · Thoughts loaded: {thoughts.length}
+                    </li>
+                  </ul>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
 
         <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
@@ -224,11 +264,12 @@ No grading. No expectations. 🌸`}
 
             {!loading && !error && thoughts.length === 0 && (
               <p className="rounded-2xl bg-white/50 py-10 text-center text-sm text-gray-600 ring-1 ring-white/60">
-                No thoughts yet — when she sends one, it will appear here for you both.
+                No thoughts loaded yet — send one from the left, or tap Retry if the inbox had an error. On small
+                screens, scroll down to this box after sending.
               </p>
             )}
 
-            <ul className="max-h-[min(70vh,520px)] space-y-4 overflow-y-auto pr-1">
+            <ul className="min-h-[120px] max-h-[min(70vh,560px)] space-y-4 overflow-y-auto pr-1">
               {thoughts.map((t) => (
                 <li
                   key={t.id}
