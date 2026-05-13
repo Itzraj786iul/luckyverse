@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Image, X, Heart, BookOpen, Coffee, Sparkles, Zap, Home, User, Download, Share2, Camera, Star } from 'lucide-react';
 import { CardSpotlight } from './ui/CardSpotlight';
+import { SharedAlbumsSection } from './gallery/SharedAlbumsSection';
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
@@ -320,6 +321,8 @@ const Gallery = () => {
             })}
           </div>
         </motion.div>
+
+        <SharedAlbumsSection />
 
         {/* Gallery Grid */}
         <motion.div

@@ -17,7 +17,7 @@ const HiddenNotes = () => {
     { id: 7, text: "You made everyone around you comfortable so easily", category: "deep", position: { top: '20%', left: '70%' } },
     { id: 8, text: "NCC Best Cadet runner-up — sneakily sharp about it", category: "funny", position: { top: '80%', right: '20%' } },
     { id: 9, text: "You definitely would stop for chai before reaching any destination", category: "funny", position: { top: '50%', left: '40%' } },
-    { id: 10, text: "April 20 — late note, sincere intention", category: "calm", position: { top: '65%', right: '10%' } },
+    { id: 10, text: "April 28 — late note, sincere intention", category: "calm", position: { top: '65%', right: '10%' } },
     { id: 11, text: "You somehow made random stairs feel memorable", category: "deep", position: { top: '85%', left: '50%' } },
     { id: 12, text: "Agartala’s stuck with you — lucky them", category: "funny", position: { top: '30%', right: '40%' } },
     { id: 13, text: "Proper bye still pending on better terms", category: "deep", position: { top: '10%', left: '45%' } },

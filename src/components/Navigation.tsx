@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   PartyPopper, MessageCircle, Map, Music, Image, Camera,
-  Sparkles, Heart, Mail, Wand2, Menu, X
+  Sparkles, Heart, Mail, Wand2, Menu, X, Compass,
 } from 'lucide-react';
 
 const MotionLink = motion(Link);
@@ -26,6 +26,7 @@ const Navigation = () => {
     { path: '/', label: 'Welcome', icon: PartyPopper },
     { path: '/letter', label: 'Letter', icon: MessageCircle },
     { path: '/journey', label: 'Journey', icon: Map },
+    { path: '/together', label: 'Together', icon: Compass },
     { path: '/playlist', label: 'Playlist', icon: Music },
     { path: '/gallery', label: 'Gallery', icon: Image },
     { path: '/memories', label: 'Memories', icon: Camera },
@@ -38,8 +39,8 @@ const Navigation = () => {
     { path: '/filters', label: 'Filters', icon: Wand2 },
   ];
 
-  const primaryItems = navItems.slice(0, 9);
-  const moreItems = navItems.slice(9);
+  const primaryItems = navItems.slice(0, 10);
+  const moreItems = navItems.slice(10);
 
   // Close "More" dropdown when clicking outside
   useEffect(() => {

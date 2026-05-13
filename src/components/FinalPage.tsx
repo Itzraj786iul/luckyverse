@@ -98,14 +98,14 @@ const FinalPage = () => {
               className="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-8 border-l-4 border-purple-400"
             >
               <h2 className="text-3xl font-dancing font-bold text-purple-700 mb-4">
-                April / Lucky
+                April 28 / Lucky
               </h2>
               
               <p className="text-lg text-gray-700 leading-relaxed">
                 Happy Birthday, Lucky — for real, even if the timing’s awkward.
                 <br />
                 <br />
-                April 20 passed while I was still clueless — that’s on me. Late wishes still count if the intention survives, right?
+                April 28 passed while I was still clueless — that’s on me. Late wishes still count if the intention survives, right?
                 <br />
                 <br />
                 You’d still choose mountains over a huge party. One future birthday definitely deserves actual altitude and bad signal.

@@ -11,7 +11,7 @@ const CalmCorner = () => {
   const affirmations = [
     "Warmth doesn't need a speech attached.",
     "You can want roads and rest in the same week.",
-    "April 20 is just a date — the thought can arrive later.",
+    "April 28 is just a date — the thought can arrive later.",
     "Mountains can stay a hobby, not a personality trial.",
     "Playful isn't shallow. You proved that.",
     "Voice notes are allowed to be long. So is silence after.",

@@ -18,6 +18,7 @@ import {
   Wand2,
   Coffee,
   Mountain,
+  Compass,
 } from 'lucide-react';
 import { heroMotion, prefersReducedMotion } from '../lib/heroMotion';
 import { CardSpotlight } from './ui/CardSpotlight';
@@ -72,6 +73,12 @@ const EXPLORE = [
     label: 'Journey',
     blurb: 'NIMAS week in scenes: trek line, gate, stairs, now.',
     Icon: Map,
+  },
+  {
+    to: '/together',
+    label: 'Together',
+    blurb: 'Soft future list — Meghalaya, ridges, chai, same orbit.',
+    Icon: Compass,
   },
   {
     to: '/gallery',
@@ -246,7 +253,7 @@ const WelcomePage = () => {
             </motion.p>
 
             <motion.p variants={itemVariants} className="mb-6 text-base leading-relaxed text-gray-600 md:text-lg">
-              April 20 is in here quietly — late wishes, still meant. Meghalaya plans are still half-made on purpose.
+              April 28 is in here quietly — late wishes, still meant. Meghalaya plans are still half-made on purpose.
               This whole place is just a saved atmosphere: chai breaks, voice notes, comfortable silence when words
               are not required.
             </motion.p>
@@ -286,6 +293,10 @@ const WelcomePage = () => {
               <Link to="/journey" className="lv-btn-ghost">
                 <Map size={16} className="opacity-80" />
                 Journey
+              </Link>
+              <Link to="/together" className="lv-btn-ghost">
+                <Compass size={16} className="opacity-80" />
+                Together
               </Link>
               <Link to="/gallery" className="lv-btn-ghost">
                 <Image size={16} className="opacity-80" />

@@ -10,6 +10,7 @@ import HiddenNotes from './components/HiddenNotes';
 import CalmCorner from './components/CalmCorner';
 import JustSpace from './components/JustSpace';
 import FinalPage from './components/FinalPage';
+import FutureTogether from './components/FutureTogether';
 import PhotoUpload from './components/PhotoUpload';
 import PhotoCollage from './components/PhotoCollage';
 import ImageFilters from './components/ImageFilters';
@@ -25,6 +26,7 @@ function App() {
             <Route path="/" element={<WelcomePage />} />
             <Route path="/letter" element={<OpenLetter />} />
             <Route path="/journey" element={<Timeline />} />
+            <Route path="/together" element={<FutureTogether />} />
             <Route path="/playlist" element={<MusicPlayer />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/memories" element={<MemoryWall />} />
