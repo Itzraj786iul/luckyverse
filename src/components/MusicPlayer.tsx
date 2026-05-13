@@ -12,45 +12,45 @@ const MusicPlayer = () => {
       title: 'Ilahi',
       artist: 'Arijit Singh',
       album: 'Yeh Jawaani Hai Deewani',
-      emotion: 'Wanderlust & Dreams',
+      emotion: 'Open road',
       color: 'from-blue-400 to-purple-500',
-      description: 'For the dreamer in you who looks beyond the ordinary',
+      description: 'Windows-down energy without pretending it’s a movie',
       src: '/songs/ilahi.mp3' // ✅ Replace with actual file path or URL
     },
     {
       title: 'Agar Tum Saath Ho',
       artist: 'Alka Yagnik & Arijit Singh',
       album: 'Tamasha',
-      emotion: 'Emotional Depth',
+      emotion: 'Late night roads',
       color: 'from-purple-500 to-pink-500',
-      description: 'For moments when feelings run deeper than words',
+      description: 'When the playlist is too honest and you play it anyway',
       src: '/songs/agar_tum_saath_ho.mp3'
     },
     {
       title: 'Love You Zindagi',
       artist: 'Amit Trivedi',
       album: 'Dear Zindagi',
-      emotion: 'Self-Love & Hope',
+      emotion: 'Easy morning',
       color: 'from-green-400 to-blue-400',
-      description: 'A reminder that life is beautiful, especially your life',
+      description: 'Soft light, no performance — just you getting through the day',
       src: '/songs/love_you_zindagi.mp3'
     },
     {
       title: 'Khulke Jeene Ka',
       artist: 'Arijit Singh',
       album: 'Dil Bechara',
-      emotion: 'Living Freely',
+      emotion: 'Kitchen-dance energy',
       color: 'from-orange-400 to-red-400',
-      description: 'For embracing every moment with an open heart',
+      description: 'Laughing loud on purpose because the week was too serious',
       src: '/songs/khulke_jeene_ka.mp3'
     },
     {
       title: 'Raabta (Instrumental)',
       artist: 'A.R. Rahman',
       album: 'Agent Vinod',
-      emotion: 'Connection & Memory',
+      emotion: 'Instrumental drift',
       color: 'from-pink-400 to-purple-400',
-      description: 'For the connections that transcend time and space',
+      description: 'No lyrics required — just background for thinking less hard',
       src: 'https://jmp.sh/s/MafQBMOATsQknctW27n0'
     }
   ];
@@ -104,9 +104,9 @@ const MusicPlayer = () => {
         >
           <Music className="mx-auto mb-4 text-purple-600" size={48} />
           <h1 className="text-4xl md:text-5xl font-dancing font-bold text-purple-700 mb-4">
-            Songs for Shagufta
+            Luckyverse playlist
           </h1>
-          <p className="text-gray-600">A curated playlist of meaningful melodies</p>
+          <p className="text-gray-600">Soft playlist notes — nothing dramatic, just mood</p>
         </motion.div>
 
         {/* Main Player */}
@@ -243,7 +243,7 @@ const MusicPlayer = () => {
           className="text-center mt-8"
         >
           <p className="text-gray-600 text-sm italic">
-            "Music is the language of memories and emotions" 🎵
+            Music is mostly timing — like camp week, honestly 🎵
           </p>
         </motion.div>
       </div>

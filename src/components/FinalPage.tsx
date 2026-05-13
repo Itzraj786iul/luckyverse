@@ -52,7 +52,7 @@ const FinalPage = () => {
         >
           <Wand2 className="mx-auto mb-4 text-purple-600" size={48} />
           <h1 className="text-4xl md:text-6xl font-dancing font-bold text-purple-700 mb-6">
-            No Pressure, Just Peace
+            No pressure, just warmth
           </h1>
         </motion.div>
 
@@ -75,11 +75,11 @@ const FinalPage = () => {
               </div>
               
               <p className="text-xl md:text-2xl text-gray-700 leading-relaxed mb-6">
-                This space is not here to ask, expect, or change anything.
+                Nothing here is trying to negotiate with you. It’s just a saved atmosphere.
               </p>
               
               <p className="text-xl md:text-2xl text-gray-700 leading-relaxed mb-8">
-                It's only here to appreciate you — for being you.
+                NIMAS stuff mostly — the trek, the gate, the stairs, the bye that wasn’t quite a bye. Small things that refuse to shrink in memory.
               </p>
               
               <motion.div
@@ -98,17 +98,20 @@ const FinalPage = () => {
               className="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-8 border-l-4 border-purple-400"
             >
               <h2 className="text-3xl font-dancing font-bold text-purple-700 mb-4">
-                Happy Birthday, Shagufta
+                April / Lucky
               </h2>
               
               <p className="text-lg text-gray-700 leading-relaxed">
-                May the year ahead be kind, free, and fulfilling.
+                Happy Birthday, Lucky — for real, even if the timing’s awkward.
                 <br />
-                May it bring you peace in quiet moments,
                 <br />
-                strength in challenges,
+                April 20 passed while I was still clueless — that’s on me. Late wishes still count if the intention survives, right?
                 <br />
-                and joy in unexpected places.
+                <br />
+                You’d still choose mountains over a huge party. One future birthday definitely deserves actual altitude and bad signal.
+                <br />
+                <br />
+                Until then: keep your trips messy, your chai hot, your voice notes unreasonably long.
               </p>
             </motion.div>
           </div>
@@ -123,14 +126,10 @@ const FinalPage = () => {
         >
           <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/30">
             <p className="text-gray-700 font-light text-lg">
-              "The most beautiful people are those who have known defeat, 
-              known suffering, known struggle, known loss, and have found 
-              their way out of the depths. They have an appreciation, 
-              a sensitivity, and an understanding of life that fills them 
-              with compassion, gentleness, and a deep loving concern."
+              If anything from that week stuck, it’s probably small — a sentence at a gate, a joke on a trek, someone calling out a lazy goodbye. Nothing needs to be bigger than it already was.
             </p>
             <p className="text-purple-600 mt-4 font-dancing text-xl">
-              — Elisabeth Kübler-Ross
+              — saved as Luckyverse
             </p>
           </div>
 
@@ -139,7 +138,7 @@ const FinalPage = () => {
             transition={{ duration: 4, repeat: Infinity }}
             className="inline-block bg-gradient-to-r from-purple-400 to-pink-400 text-white px-8 py-4 rounded-full text-lg font-medium shadow-lg"
           >
-            Thank you for being wonderfully you 🌸
+            Thanks for being easy to remember — Lucky 🌸
           </motion.div>
         </motion.div>
 
@@ -197,7 +196,7 @@ const FinalPage = () => {
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center"
       >
         <p className="text-gray-500 text-sm italic">
-          This website will always be here, like a quiet friend 💜
+          This tab can stay open. Or not. No pressure either way 💜
         </p>
       </motion.div>
     </motion.div>

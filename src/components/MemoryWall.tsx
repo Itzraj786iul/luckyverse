@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Camera, BookOpen, Lightbulb, MapPin, X } from 'lucide-react';
+import { Camera, X } from 'lucide-react';
+import { CardSpotlight } from './ui/CardSpotlight';
 
 const MemoryWall = () => {
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
@@ -12,88 +13,94 @@ const MemoryWall = () => {
       color: 'from-blue-400 to-purple-500',
       items: [
         {
-          title: 'Quiet Library Corners',
-          content: 'Every library corner I see reminds me of how you find peace in books and solitude. That\'s your superpower.',
-          sticker: '📚'
+          title: 'Grey-sky hills',
+          content:
+            'Whenever the weather turns moody on a ridgeline I think of you pitching Meghalaya again while standing in Tripura heat. Still “soon,” apparently.',
+          sticker: '🏔️',
         },
         {
-          title: 'Evening Tea',
-          content: 'Saw someone having evening tea alone, looking content. Thought of you and how you make solitude look beautiful.',
-          sticker: '🍵'
+          title: 'Chai o’clock (illegal edition)',
+          content:
+            'Someone pouring tea too late, laughing too loud — instant flash to you making a mess hall feel smaller than it was.',
+          sticker: '🍵',
         },
         {
-          title: 'Engineering Memes',
-          content: 'Every electrical engineering joke I see makes me think "Shagufta would get this immediately"',
-          sticker: '⚡'
-        }
-      ]
+          title: 'Random stairs',
+          content:
+            'Concrete steps + phone light = NIMAS default. You somehow made random stairs feel memorable.',
+          sticker: '🌙',
+        },
+      ],
     },
     {
-      category: 'Random Poems',
+      category: 'Small fragments',
       icon: '📝',
       color: 'from-purple-500 to-pink-500',
       items: [
         {
-          title: 'Distance',
-          content: 'Two years of silence,\nYet some bonds don\'t break—\nThey just wait patiently\nFor courage to wake.',
-          sticker: '🌙'
+          title: 'Day three',
+          content:
+            'Not about altitude,\njust relief —\nfinally talking\nwithout overthinking the timing.',
+          sticker: '🥾',
         },
         {
-          title: 'For Introverts',
-          content: 'She finds magic in quiet moments,\nStrength in gentle thoughts,\nBeauty in simple conversations\nThat say everything words cannot.',
-          sticker: '✨'
+          title: 'Batch theories',
+          content:
+            'We swapped seats,\nacted casual,\ntexted anyway.\nPlayful.\nPredictable.\nFine.',
+          sticker: '✨',
         },
         {
-          title: 'Birthday Wish',
-          content: 'May your new year be filled\nWith books that inspire,\nTea that comforts,\nAnd dreams that never tire.',
-          sticker: '🌸'
-        }
-      ]
+          title: 'April 20',
+          content:
+            'Missed it in real time.\nNot trying to turn that into a scene —\nlate wishes still count if the intention survived.',
+          sticker: '🎂',
+        },
+      ],
     },
     {
-      category: 'Just Doodles',
+      category: 'Just doodles',
       icon: '🎨',
       color: 'from-pink-500 to-orange-400',
       items: [
         {
-          title: 'Circuit of you',
-          content: '⚡ ~~~~ 💝 ~~~~ ⚡\n(A simple circuit where care flows both ways)',
-          sticker: '🔌'
+          title: 'Map math',
+          content: 'Agartala ←→ Chhattisgarh\n     \\       /\n      Bhalukpong\n(rivers do the negotiating)',
+          sticker: '🗺️',
         },
         {
-          title: 'Introvert\'s Paradise',
-          content: '🏠 + 📚 + ☕ + 🎵 = Perfect Day\n(The equation for contentment)',
-          sticker: '🏡'
+          title: 'Cadet equation',
+          content: '100 cadets + 1 gate + 0 sleep\n= still somehow remembering your laugh first.',
+          sticker: '⚡',
         },
         {
-          title: 'Growth Chart',
-          content: 'Mistake → Learning → Growth → Better Human\n📈 (We\'re all just works in progress)',
-          sticker: '🌱'
-        }
-      ]
+          title: 'Proper bye box',
+          content: '[ ] wave\n[ ] text\n[x] sentence that stayed\n[ ] future hug IOU',
+          sticker: '📦',
+        },
+      ],
     },
     {
-      category: 'Someday Thoughts',
+      category: 'Someday thoughts',
       icon: '🌟',
       color: 'from-green-400 to-blue-400',
       items: [
         {
-          title: 'Future Engineer',
-          content: 'Someday you\'ll design something that makes the world a little better. I just know it.',
-          sticker: '🔬'
+          title: 'Meghalaya again',
+          content: 'Same half-plan. Different month. Still sounds doable if we stop overthinking permits.',
+          sticker: '🌧️',
         },
         {
-          title: 'Comfort Zone',
-          content: 'Someday I hope you find spaces everywhere that feel as safe as your favorite reading corner.',
-          sticker: '🛋️'
+          title: 'Mountain air IOU',
+          content: 'One future birthday should happen at altitude — snacks optional, pressure not invited.',
+          sticker: '🎈',
         },
         {
-          title: 'Us',
-          content: 'Someday we\'ll look back at this rebuilding phase and be grateful for second chances.',
-          sticker: '🤝'
-        }
-      ]
-    }
+          title: 'Same orbit',
+          content: 'Whatever we call this phase — glad we still talk. Glad it’s still easy.',
+          sticker: '🤝',
+        },
+      ],
+    },
   ];
 
   return (
@@ -113,7 +120,7 @@ const MemoryWall = () => {
           <h1 className="text-4xl md:text-5xl font-dancing font-bold text-purple-700 mb-4">
             Memory Wall
           </h1>
-          <p className="text-gray-600">Little thoughts and memories collected just for you</p>
+          <p className="text-gray-600">Little thoughts collected just for you</p>
         </motion.div>
 
         <div className="grid gap-8">
@@ -144,23 +151,36 @@ const MemoryWall = () => {
                   <motion.div
                     key={itemIndex}
                     layoutId={`card-${categoryIndex}-${itemIndex}`}
-                    whileHover={{ scale: 1.03, y: -5 }}
+                    whileHover={{
+                      scale: 1.04,
+                      y: -8,
+                      rotateX: 2,
+                      rotateY: itemIndex % 2 === 0 ? -2.5 : 2.5,
+                      boxShadow: '0 24px 50px rgba(124,58,237,0.2)',
+                    }}
+                    transition={{ type: 'spring', stiffness: 280, damping: 22 }}
                     onClick={() => setSelectedCard(categoryIndex * 100 + itemIndex)}
-                    className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/40 cursor-pointer relative overflow-hidden"
+                    className="lv-glass-panel lv-card-shine rounded-2xl shadow-xl cursor-pointer relative [transform-style:preserve-3d] ring-1 ring-white/35"
                   >
-                    <div className="absolute top-4 right-4 text-3xl">
-                      {item.sticker}
-                    </div>
-                    
-                    <h3 className="text-xl font-semibold text-gray-800 mb-4 pr-12">
-                      {item.title}
-                    </h3>
-                    
-                    <p className="text-gray-700 leading-relaxed line-clamp-4">
-                      {item.content}
-                    </p>
-                    
-                    <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${category.color}`}></div>
+                    <CardSpotlight className="rounded-2xl h-full min-h-[200px]">
+                      <div className="relative p-6 h-full flex flex-col">
+                        <div className="absolute top-4 right-4 text-3xl z-[2]">
+                          {item.sticker}
+                        </div>
+
+                        <h3 className="text-xl font-semibold text-gray-800 mb-4 pr-12">
+                          {item.title}
+                        </h3>
+
+                        <p className="text-gray-700 leading-relaxed line-clamp-4 flex-1">
+                          {item.content}
+                        </p>
+
+                        <div
+                          className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${category.color} rounded-b-2xl`}
+                        />
+                      </div>
+                    </CardSpotlight>
                   </motion.div>
                 ))}
               </div>
@@ -197,7 +217,7 @@ const MemoryWall = () => {
                   const itemIndex = selectedCard % 100;
                   const category = memories[categoryIndex];
                   const item = category.items[itemIndex];
-                  
+
                   return (
                     <div>
                       <div className="flex items-center space-x-4 mb-6">
@@ -214,7 +234,7 @@ const MemoryWall = () => {
                           {item.sticker}
                         </div>
                       </div>
-                      
+
                       <div className="prose max-w-none">
                         <p className="text-lg text-gray-700 leading-relaxed whitespace-pre-line">
                           {item.content}
@@ -236,7 +256,7 @@ const MemoryWall = () => {
         >
           <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-6 max-w-2xl mx-auto">
             <p className="text-gray-600 italic">
-              "The best memories are the ones that make you smile without trying"
+              Some conversations naturally became part of memory. No thesis required.
             </p>
             <p className="text-purple-600 mt-2 font-dancing text-lg">
               Click on any card to read more ✨

@@ -6,11 +6,21 @@ import {
   Sparkles, Heart, Mail, Wand2, Menu, X
 } from 'lucide-react';
 
+const MotionLink = motion(Link);
+
 const Navigation = () => {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [showMore, setShowMore] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const moreRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const navItems = [
     { path: '/', label: 'Welcome', icon: PartyPopper },
@@ -43,7 +53,12 @@ const Navigation = () => {
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-pastel-lilac/30">
+    <motion.nav
+      layout
+      className={`fixed top-0 left-0 right-0 z-50 border-b border-white/40 lv-glass-panel transition-shadow duration-500 ${
+        scrolled ? 'shadow-[0_16px_48px_rgba(124,58,237,0.14)]' : 'shadow-none'
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <motion.div
@@ -52,7 +67,7 @@ const Navigation = () => {
             className="flex-shrink-0"
           >
             <Link to="/" className="text-2xl font-dancing font-bold text-purple-600">
-              Hey Shagufta 🌸
+              Luckyverse 🌸
             </Link>
           </motion.div>
 
@@ -70,17 +85,20 @@ const Navigation = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.05 }}
                   >
-                    <Link
+                    <MotionLink
                       to={item.path}
-                      className={`flex items-center space-x-1 px-3 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                      whileHover={{ y: -2, scale: 1.04 }}
+                      whileTap={{ scale: 0.97 }}
+                      transition={{ type: 'spring', stiffness: 420, damping: 24 }}
+                      className={`flex items-center space-x-1 px-3 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
                         isActive
-                          ? 'bg-purple-100 text-purple-700 shadow-md'
-                          : 'text-gray-600 hover:text-purple-600 hover:bg-purple-50'
+                          ? 'bg-purple-100 text-purple-700 shadow-md ring-1 ring-purple-200/60'
+                          : 'text-gray-600 hover:text-purple-600 hover:bg-purple-50/90'
                       }`}
                     >
                       <Icon size={16} />
                       <span>{item.label}</span>
-                    </Link>
+                    </MotionLink>
                   </motion.div>
                 );
               })}
@@ -101,10 +119,12 @@ const Navigation = () => {
                         const Icon = item.icon;
                         const isActive = location.pathname === item.path;
                         return (
-                          <Link
+                          <MotionLink
                             key={item.path}
                             to={item.path}
                             onClick={() => setShowMore(false)}
+                            whileHover={{ x: -2, backgroundColor: 'rgba(243,232,255,0.95)' }}
+                            whileTap={{ scale: 0.98 }}
                             className={`flex items-center space-x-2 px-4 py-2 text-sm rounded-lg transition-colors ${
                               isActive
                                 ? 'bg-purple-100 text-purple-700'
@@ -113,7 +133,7 @@ const Navigation = () => {
                           >
                             <Icon size={16} />
                             <span>{item.label}</span>
-                          </Link>
+                          </MotionLink>
                         );
                       })}
                     </div>
@@ -146,10 +166,12 @@ const Navigation = () => {
               const isActive = location.pathname === item.path;
 
               return (
-                <Link
+                <MotionLink
                   key={item.path}
                   to={item.path}
                   onClick={() => setIsOpen(false)}
+                  whileHover={{ x: 4 }}
+                  whileTap={{ scale: 0.98 }}
                   className={`flex items-center space-x-2 px-3 py-2 rounded-md text-base font-medium transition-all duration-300 ${
                     isActive
                       ? 'bg-purple-100 text-purple-700'
@@ -158,13 +180,13 @@ const Navigation = () => {
                 >
                   <Icon size={18} />
                   <span>{item.label}</span>
-                </Link>
+                </MotionLink>
               );
             })}
           </div>
         </motion.div>
       </div>
-    </nav>
+    </motion.nav>
   );
 };
 

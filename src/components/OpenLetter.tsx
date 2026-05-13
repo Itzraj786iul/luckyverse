@@ -2,28 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { BookOpen, Heart } from 'lucide-react';
 
+const LETTER_CONTENT = [
+  'Dear Lucky,',
+  'NCC River Rafting Special Course, NIMAS Bhalukpong — from 10 Oct 2025. Roughly a hundred cadets, same mess, same tired jokes. You from Agartala, Tripura. Me from Chhattisgarh. Same cold mornings, same river days.',
+  'First couple of days we barely spoke. Then on day three of a trek you opened with “Tu Bengali h kya?” Still feels funny that everything started there. After that it was just… constant.',
+  'After dinner everyone drifted to the institute exit — gate, stairs, phones glowing. Little texts to come sit closer, swap seats, pretend it was casual. The batch definitely had theories. We didn’t really care.',
+  'When camp ended I left first. I wanted a real hug, chickened out, did a half wave. You said I didn’t give you a proper bye. Fair. That sentence stuck — not dramatic, just true. (You still owe one clean goodbye on better terms. Half joking.)',
+  'You’re the extrovert who actually settles a room. Army kid, Himachal till 10th, Holy Cross now, third year, NCC Best Cadet runner-up — yeah, it tracks. You also romanticize mountains too much. It’s fine.',
+  'April 20 slipped past while I was still sorting my head. Late wishes, but the intention survived. You’d still pick mountains over a fancy celebration anyway. One future birthday definitely deserves mountain air.',
+  'This is just Luckyverse — chai breaks, half-made Meghalaya plans, voice notes, comfortable silence when words aren’t needed.',
+  'Happy Birthday, Lucky. Seriously.',
+  '— the cadet who still remembers the stairs',
+];
+
 const OpenLetter = () => {
   const [currentParagraph, setCurrentParagraph] = useState(0);
 
-  const letterContent = [
-    "Dear Shagufta,",
-    "I disappeared. I messed up. There’s no way around it. Two years of silence where there should have been support, honesty, and friendship.",
-    "After NDA didn’t work out, I shut down. I was lost in disappointment and didn’t know how to handle it — so I disappeared instead of reaching out. That was selfish. And you didn’t deserve that silence.",
-    "Over time, guilt turned into learning. I’ve realized how silence can speak louder than words, and how walking away hurts people who once genuinely cared.",
-    "That day at the railway station… I didn’t even see you. But the thought of you, just the thought, hit me like a storm. It made me feel things I thought I had buried. It was overwhelming — not in a dramatic way, but in a raw, honest way. That moment made me realize just how deeply someone’s presence — or absence — can affect you",
-    "I’m not writing this expecting anything. I know you've made it clear you want to go slow, stay friends — and I truly respect that. This space isn’t for pressure. It’s just appreciation.",
-    "You’re in your second year of B.Tech EE at Jamia, walking your own path, with calmness and clarity. That’s something I deeply admire. You’ve always been someone who chose depth over noise, peace over chaos.",
-    "This letter, and this digital space, are just a small gesture. Something for you, your mind, your soul — because you’ve always valued the small, quiet, beautiful things.",
-    "So here it is — a soft birthday gift. No expectations, just good intentions. May this year bring you ease, clarity, strength, and joy.",
-    "Happy Birthday, Shagufta. Thank you for still being here. 🌸",
-    "With quiet respect, and genuine care — Chotu(Raziullah)"
-  ];
-
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentParagraph((prev) =>
-        prev < letterContent.length - 1 ? prev + 1 : prev
-      );
+      setCurrentParagraph((prev) => (prev < LETTER_CONTENT.length - 1 ? prev + 1 : prev));
     }, 3000);
     return () => clearInterval(timer);
   }, []);
@@ -45,7 +42,7 @@ const OpenLetter = () => {
           <h1 className="text-4xl md:text-5xl font-dancing font-bold text-purple-700 mb-4">
             An Open Letter
           </h1>
-          <p className="text-gray-600">Written with honesty and care</p>
+          <p className="text-gray-600">Reads more like a long text than a speech</p>
         </motion.div>
 
         <motion.div
@@ -55,31 +52,29 @@ const OpenLetter = () => {
           className="bg-white/60 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-2xl border border-white/40 relative overflow-hidden"
           style={{
             backgroundImage:
-              'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23e6e6fa\' fill-opacity=\'0.1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")'
+              "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e6e6fa' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
           }}
         >
           <div className="space-y-6 text-gray-700 leading-relaxed">
-            {letterContent.map((paragraph, index) => (
+            {LETTER_CONTENT.map((paragraph, index) => (
               <motion.p
                 key={index}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{
                   opacity: index <= currentParagraph ? 1 : 0.3,
-                  x: 0
+                  x: 0,
                 }}
                 transition={{
                   delay: index * 0.5,
-                  duration: 0.8
+                  duration: 0.8,
                 }}
                 className={`text-lg ${
-                  index === 0 || index === letterContent.length - 2
+                  index === 0 || index === LETTER_CONTENT.length - 2
                     ? 'font-dancing text-2xl text-purple-700'
-                    : index === letterContent.length - 1
-                    ? 'font-dancing text-xl text-purple-600 text-right'
-                    : 'font-poppins'
-                } ${
-                  index <= currentParagraph ? 'opacity-100' : 'opacity-30'
-                }`}
+                    : index === LETTER_CONTENT.length - 1
+                      ? 'font-dancing text-xl text-purple-600 text-right'
+                      : 'font-poppins'
+                } ${index <= currentParagraph ? 'opacity-100' : 'opacity-30'}`}
               >
                 {paragraph}
               </motion.p>
@@ -111,7 +106,7 @@ const OpenLetter = () => {
           className="text-center mt-8"
         >
           <p className="text-gray-600 text-sm">
-            Take your time reading. There's no rush. ✨
+            Read it in pieces if you want. No timer. ✨
           </p>
         </motion.div>
       </div>

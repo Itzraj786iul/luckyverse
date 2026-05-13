@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Grid, Shuffle, Download, Share2, X } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Grid, Shuffle, Download, X } from 'lucide-react';
+
+type CollageLayout = 'grid' | 'mosaic' | 'heart';
 
 interface PhotoCollageProps {
-  images: any[];
+  images: string[];
   onClose: () => void;
 }
 
 const PhotoCollage: React.FC<PhotoCollageProps> = ({ images, onClose }) => {
-  const [layout, setLayout] = useState<'grid' | 'mosaic' | 'heart'>('grid');
+  const [layout, setLayout] = useState<CollageLayout>('grid');
   const [selectedImages, setSelectedImages] = useState<number[]>([]);
 
-  const layouts = [
+  const layouts: { id: CollageLayout; name: string; icon: typeof Grid | '💝' }[] = [
     { id: 'grid', name: 'Grid', icon: Grid },
     { id: 'mosaic', name: 'Mosaic', icon: Shuffle },
     { id: 'heart', name: 'Heart', icon: '💝' }
@@ -67,7 +69,7 @@ const PhotoCollage: React.FC<PhotoCollageProps> = ({ images, onClose }) => {
                   key={layoutOption.id}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => setLayout(layoutOption.id as any)}
+                  onClick={() => setLayout(layoutOption.id)}
                   className={`flex items-center space-x-2 px-3 py-2 rounded-full text-sm font-medium transition-all ${
                     layout === layoutOption.id
                       ? 'bg-purple-500 text-white'

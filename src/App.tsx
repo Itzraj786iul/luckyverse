@@ -1,7 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import Navigation from './components/Navigation';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import WelcomePage from './components/WelcomePage';
 import OpenLetter from './components/OpenLetter';
 import Timeline from './components/Timeline';
@@ -12,21 +10,17 @@ import HiddenNotes from './components/HiddenNotes';
 import CalmCorner from './components/CalmCorner';
 import JustSpace from './components/JustSpace';
 import FinalPage from './components/FinalPage';
-import FloatingParticles from './components/FloatingParticles';
 import PhotoUpload from './components/PhotoUpload';
 import PhotoCollage from './components/PhotoCollage';
 import ImageFilters from './components/ImageFilters';
-
+import { AppShell } from './components/layout/AppShell';
 
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gradient-to-br from-pastel-lavender via-pastel-rose to-pastel-mint font-poppins relative overflow-x-hidden">
-        <FloatingParticles />
-        <Navigation />
-        
-        <AnimatePresence mode="wait">
-          <Routes>
+      <div className="lv-app-shell min-h-screen font-poppins relative overflow-x-hidden lv-grain selection:bg-purple-200/60 selection:text-purple-900">
+        <Routes>
+          <Route element={<AppShell />}>
             <Route path="/" element={<WelcomePage />} />
             <Route path="/letter" element={<OpenLetter />} />
             <Route path="/journey" element={<Timeline />} />
@@ -36,39 +30,36 @@ function App() {
             <Route path="/notes" element={<HiddenNotes />} />
             <Route path="/calm" element={<CalmCorner />} />
             <Route path="/space" element={<JustSpace />} />
-            <Route 
-  path="/upload" 
-  element={
-    <PhotoUpload 
-      onUpload={(file) => console.log("Uploaded", file)} 
-      onClose={() => console.log("Closed")} 
-    />
-  } 
-/>
-
-         <Route 
-  path="/collage" 
-  element={
-    <PhotoCollage 
-      images={["/path1.jpg", "/path2.jpg"]} 
-      onClose={() => console.log("Closed collage")} 
-    />
-  } 
-/>
-
-            <Route 
-  path="/filters" 
-  element={
-    <ImageFilters 
-      onFilterApply={(f) => console.log("Applied:", f)} 
-      currentFilter="sepia" 
-    />
-  } 
-/>
-
+            <Route
+              path="/upload"
+              element={
+                <PhotoUpload
+                  onUpload={(file) => console.log('Uploaded', file)}
+                  onClose={() => console.log('Closed')}
+                />
+              }
+            />
+            <Route
+              path="/collage"
+              element={
+                <PhotoCollage
+                  images={['/path1.jpg', '/path2.jpg']}
+                  onClose={() => console.log('Closed collage')}
+                />
+              }
+            />
+            <Route
+              path="/filters"
+              element={
+                <ImageFilters
+                  onFilterApply={(f) => console.log('Applied:', f)}
+                  currentFilter="sepia"
+                />
+              }
+            />
             <Route path="/final" element={<FinalPage />} />
-          </Routes>
-        </AnimatePresence>
+          </Route>
+        </Routes>
       </div>
     </Router>
   );

@@ -1,3 +1,198 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --lv-midnight: #05070d;
+  --lv-himalayan: #1e3a5f;
+  --lv-forest: #14261f;
+  --lv-campfire: #c45c26;
+  --lv-fog: #8a939e;
+  --lv-dust: #c9bfb2;
+  --lv-text: #e8edf5;
+  --lv-muted: rgba(232, 237, 245, 0.62);
+}
+
+html {
+  overflow-x: clip;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  overflow-x: clip;
+  overflow-y: auto;
+  background: var(--lv-midnight);
+  color: var(--lv-text);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100dvh;
+}
+
+.lv-late-night body {
+  background: #03050a;
+}
+
+html.lv-night {
+  --lv-muted: rgba(232, 237, 245, 0.55);
+}
+
+.lv-night body {
+  background: #04070f;
+}
+
+/* Lenis */
+html.lenis {
+  scroll-behavior: auto !important;
+}
+
+/* Subtle cinematic grain overlay (GPU-light) */
+.lv-grain::after {
+  content: '';
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 44;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: lvGrain 8s steps(10) infinite;
+}
+
+@keyframes lvGrain {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-1.5%, 1.5%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .lv-grain::after {
+    animation: none;
+  }
+  .lv-sky-wash,
+  .lv-sky-aurora {
+    animation: none !important;
+  }
+  .lv-app-shell {
+    animation: none !important;
+    background-size: 100% 100% !important;
+  }
+}
+
+/* Pastel cinematic sky wash (Luckyverse shell) */
+.lv-sky-wash {
+  background:
+    radial-gradient(ellipse 85% 65% at 50% 100%, rgba(199, 181, 255, 0.5) 0%, transparent 58%),
+    radial-gradient(ellipse 70% 55% at 15% 10%, rgba(255, 214, 240, 0.38) 0%, transparent 48%),
+    radial-gradient(ellipse 55% 45% at 92% 28%, rgba(203, 232, 255, 0.32) 0%, transparent 42%);
+  animation: lvSkyDrift 32s ease-in-out infinite alternate;
+}
+
+.lv-sky-aurora {
+  background: conic-gradient(
+    from 210deg at 50% 115%,
+    rgba(140, 180, 210, 0.12),
+    rgba(210, 170, 255, 0.18),
+    rgba(255, 200, 190, 0.1),
+    rgba(130, 200, 190, 0.12),
+    rgba(140, 180, 210, 0.12)
+  );
+  animation: lvAuroraSpin 56s linear infinite;
+}
+
+@keyframes lvSkyDrift {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(-2%, -1%) scale(1.03);
+  }
+}
+
+@keyframes lvAuroraSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Premium animated shell (Luckyverse) */
+.lv-app-shell {
+  background: linear-gradient(
+    125deg,
+    #f4ecff 0%,
+    #fff5fb 28%,
+    #f0fbff 55%,
+    #fdf2ff 78%,
+    #eef6ff 100%
+  );
+  background-size: 220% 220%;
+  animation: lvShellFlow 22s ease-in-out infinite alternate;
+}
+
+@keyframes lvShellFlow {
+  0% {
+    background-position: 0% 40%;
+  }
+  100% {
+    background-position: 100% 60%;
+  }
+}
+
+/* Glass panel — reuse on sections */
+.lv-glass-panel {
+  background: rgba(255, 255, 255, 0.48);
+  backdrop-filter: blur(22px) saturate(1.35);
+  -webkit-backdrop-filter: blur(22px) saturate(1.35);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow:
+    0 10px 40px rgba(124, 58, 237, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+/* Card edge shine on hover (no JS) */
+.lv-card-shine {
+  position: relative;
+  isolation: isolate;
+}
+.lv-card-shine::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: soft-light;
+  background: linear-gradient(
+    125deg,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(168, 85, 247, 0.15) 70%,
+    rgba(236, 72, 153, 0.12) 100%
+  );
+}
+.lv-card-shine:hover::before {
+  opacity: 0.55;
+}

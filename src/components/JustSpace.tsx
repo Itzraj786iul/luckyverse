@@ -50,7 +50,7 @@ const JustSpace = () => {
               Your message has been safely received. 
             </p>
             <p className="text-gray-600">
-              Thank you for sharing your thoughts. This space will always be here for you whenever you need it.
+              Got it. This box is mostly symbolic anyway — but thanks for typing.
             </p>
             
             <motion.div
@@ -84,7 +84,7 @@ const JustSpace = () => {
             Just Your Space
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            This is your private corner. Share anything or nothing at all - whatever feels right.
+            Optional. Truly. Type nonsense, type nothing — both are allowed.
           </p>
         </motion.div>
 
@@ -104,15 +104,15 @@ const JustSpace = () => {
                 whileFocus={{ scale: 1.02 }}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                placeholder="If you ever feel like sharing something — this is just your space.
+                placeholder="If you want to leave a note — cool. If not — also cool.
 
-You could write about:
-• How you're feeling today
-• Something that made you smile
-• A random thought
-• Absolutely nothing at all
+Random ideas:
+• something funny from camp
+• a place you want to drive to
+• one sentence you never sent
+• literally “ok”
 
-This is completely optional and private. Only share what feels comfortable. 🌸"
+No grading. No expectations. 🌸"
                 className="w-full h-64 p-6 rounded-2xl border-2 border-purple-200 focus:border-purple-400 focus:outline-none resize-none text-gray-700 placeholder-gray-400 bg-white/60 backdrop-blur-sm transition-all"
                 style={{ fontFamily: 'inherit' }}
               />
@@ -187,7 +187,7 @@ This is completely optional and private. Only share what feels comfortable. 🌸
           className="text-center mt-8"
         >
           <p className="text-gray-600 text-sm">
-           Made with Love ❤️ by Only your Chotu
+            Made with care — Luckyverse
           </p>
         </motion.div>
       </div>

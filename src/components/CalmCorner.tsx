@@ -9,18 +9,18 @@ const CalmCorner = () => {
   const [breathPhase, setBreathPhase] = useState('inhale'); // 'inhale', 'hold', 'exhale'
 
   const affirmations = [
-    "You are more than your worst day.",
-    "Rest is productive too.",
-    "You matter, exactly as you are.",
-    "Your sensitivity is your strength.",
-    "Progress, not perfection.",
-    "You deserve gentle kindness.",
-    "Your dreams are valid.",
-    "You are enough, right now.",
-    "Peace begins with you.",
-    "Tomorrow is a new canvas.",
-    "Your heart knows the way.",
-    "Calm is your natural state."
+    "Warmth doesn't need a speech attached.",
+    "You can want roads and rest in the same week.",
+    "April 20 is just a date — the thought can arrive later.",
+    "Mountains can stay a hobby, not a personality trial.",
+    "Playful isn't shallow. You proved that.",
+    "Voice notes are allowed to be long. So is silence after.",
+    "Chai first, decisions later.",
+    "Stillness isn't the enemy of your energy.",
+    "Meghalaya can stay a running joke until it isn't.",
+    "You're allowed to be loud and tired at once.",
+    "Comfortable beats impressive most days.",
+    "If today is heavy — smaller steps still count."
   ];
 
   useEffect(() => {

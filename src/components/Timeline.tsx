@@ -5,48 +5,48 @@ import { MapPin, Heart } from 'lucide-react';
 const Timeline = () => {
   const timelineEvents = [
     {
-      year: '2022',
-      title: 'The Beginning',
+      year: 'Oct 2025',
+      title: 'NIMAS, Bhalukpong',
       description:
-        "It all started during JEE prep — not just friendship, but a bond that turned into a relationship. We connected over shared ambition, dreams, and something deeper we didn’t even need to explain.",
-      icon: '💫',
-      quote: '"Some stories begin quietly, but they echo for years."',
+        'Same course, same mess, same Arunachal sky. Agartala cadet, Chhattisgarh cadet — polite nods at first, nothing loud yet.',
+      icon: '🏔️',
+      quote: 'Still unfair how good the sunsets looked.',
       color: 'from-purple-400 to-pink-400',
     },
     {
-      year: '2023',
-      title: 'The Distance',
+      year: 'Day three',
+      title: 'The trek line',
       description:
-        "When NDA didn’t work out, I broke down — and instead of leaning on you, I pushed you away. I chose silence over vulnerability. It wasn’t fair to you.",
-      icon: '🌫️',
-      quote: '"Pain explains a lot, but it doesn’t excuse everything."',
+        'Halfway up a trail: “Tu Bengali h kya?” — worst opener, somehow worked. After that the talking just… didn’t stop.',
+      icon: '🥾',
+      quote: 'Still feels funny how everything started there.',
       color: 'from-gray-500 to-blue-500',
     },
     {
-      year: '2023–24',
-      title: 'The Guilt',
+      year: 'Camp nights',
+      title: 'Gate & stairs',
       description:
-        "Months passed, and I carried the guilt — not loudly, but deeply. I began realizing what my absence might have meant to you… and to us.",
-      icon: '🔁',
-      quote: '"Healing starts with accountability."',
+        'After dinner everyone parked near the exit — gate, stairs, phones glowing. Texts to slide closer, swap seats, act chill. The batch wrote half a novel. We pretended not to notice.',
+      icon: '🌙',
+      quote: 'Somehow the gate stairs became a daily thing.',
       color: 'from-indigo-400 to-purple-500',
     },
     {
-      year: '2025',
-      title: 'The Stirring',
+      year: 'Leaving',
+      title: 'A proper bye',
       description:
-        "At Patna railway station, I didn’t even see you — but just thinking about you wrecked me. It made me realize how real it all still is. How much I needed to say sorry — and mean it.",
-      icon: '🚉',
-      quote: '"You don’t need to see someone to feel their presence shake your soul."',
+        'I left first, waved like an idiot, skipped the hug. You called it: no proper bye. Not a movie moment — just accurate.',
+      icon: '🌊',
+      quote: 'You still owe one proper goodbye. (So do I.)',
       color: 'from-yellow-400 to-pink-500',
     },
     {
       year: 'Now',
-      title: 'The Chance',
+      title: 'Same orbit',
       description:
-        "You gave this bond a second chance. You asked to keep it slow. And I’m here — not to rush anything, but to show up better. With honesty, patience, and gratitude.",
-      icon: '🌸',
-      quote: '"Some second chances are quieter — but far more sacred."',
+        'After camp the talking spilled into normal life — voice notes, random updates, easy laughter. No screenplay required.',
+      icon: '✨',
+      quote: 'Meghalaya plans somehow still sound real.',
       color: 'from-pink-400 to-purple-400',
     },
   ];
@@ -70,13 +70,20 @@ const Timeline = () => {
             Our Journey
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Every bond has seasons — the warmth, the storms, and the calm after
+            NIMAS week in loose order — nothing here needs a perfect ending
           </p>
         </motion.div>
 
         {/* Timeline Line */}
         <div className="relative">
-          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-purple-300 to-pink-300 rounded-full"></div>
+          <motion.div
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={{ once: true, margin: '-8%' }}
+            transition={{ duration: 1.15, ease: [0.22, 1, 0.36, 1] }}
+            style={{ originY: 0 }}
+            className="absolute left-1/2 h-full w-1 -translate-x-1/2 rounded-full bg-gradient-to-b from-purple-300 to-pink-300 shadow-[0_0_20px_rgba(168,85,247,0.25)]"
+          />
 
           {/* Timeline Events */}
           {timelineEvents.map((event, index) => (
@@ -92,8 +99,15 @@ const Timeline = () => {
               {/* Content Box */}
               <div className={`w-5/12 ${index % 2 === 0 ? 'text-right pr-8' : 'text-left pl-8'}`}>
                 <motion.div
-                  whileHover={{ scale: 1.02, y: -5 }}
-                  className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/40"
+                  whileHover={{
+                    scale: 1.03,
+                    y: -8,
+                    rotateX: 3,
+                    rotateY: index % 2 === 0 ? -2.5 : 2.5,
+                    boxShadow: '0 24px 56px rgba(124,58,237,0.22)',
+                  }}
+                  transition={{ type: 'spring', stiffness: 260, damping: 22 }}
+                  className="lv-glass-panel lv-card-shine rounded-2xl p-6 shadow-xl [transform-style:preserve-3d] ring-1 ring-white/40"
                 >
                   <div className={`text-6xl mb-4 ${index % 2 === 0 ? 'text-right' : 'text-left'}`}>
                     {event.icon}
@@ -141,9 +155,9 @@ const Timeline = () => {
           <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-white/30 max-w-2xl mx-auto">
             <Heart className="mx-auto mb-4 text-pink-500" size={32} />
             <p className="text-lg text-gray-700 font-light">
-              "Every end is a new beginning, and every beginning deserves to be celebrated with care."
+              You’d definitely stop for chai before reaching any destination. Someone should plan a trip around that.
             </p>
-            <p className="text-purple-600 mt-4 font-dancing text-xl">Here’s to the journey ahead 🌸</p>
+            <p className="text-purple-600 mt-4 font-dancing text-xl">Okay. Roads later. For now — this 🌸</p>
           </div>
         </motion.div>
       </div>

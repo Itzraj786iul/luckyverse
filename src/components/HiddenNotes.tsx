@@ -8,21 +8,21 @@ const HiddenNotes = () => {
   const [filter, setFilter] = useState<string>('all');
 
   const notes = [
-    { id: 1, text: "You made me feel seen when I thought I was invisible", category: "deep", position: { top: '15%', left: '20%' } },
-    { id: 2, text: "Your quiet strength is louder than any speech", category: "deep", position: { top: '25%', right: '15%' } },
-    { id: 3, text: "I'm rooting for your dreams, even from afar", category: "calm", position: { top: '40%', left: '10%' } },
-    { id: 4, text: "You make introversion look like a superpower", category: "funny", position: { top: '60%', right: '25%' } },
-    { id: 5, text: "Your mind works in beautiful, complex ways", category: "deep", position: { top: '35%', left: '60%' } },
-    { id: 6, text: "Thank you for teaching me that silence can heal", category: "calm", position: { top: '70%', left: '30%' } },
-    { id: 7, text: "You deserve all the peace this world can offer", category: "calm", position: { top: '20%', left: '70%' } },
-    { id: 8, text: "Engineers who read poetry are rare treasures", category: "funny", position: { top: '80%', right: '20%' } },
-    { id: 9, text: "You made me want to become a better person", category: "deep", position: { top: '50%', left: '40%' } },
-    { id: 10, text: "Your birthday deserves all the gentle celebrations", category: "calm", position: { top: '65%', right: '10%' } },
-    { id: 11, text: "You matter more than you know", category: "deep", position: { top: '85%', left: '50%' } },
-    { id: 12, text: "Patna is lucky to have you back", category: "funny", position: { top: '30%', right: '40%' } },
-    { id: 13, text: "Your friendship is a gift I didn't know I needed", category: "deep", position: { top: '10%', left: '45%' } },
-    { id: 14, text: "Keep being authentically, beautifully you", category: "calm", position: { top: '75%', left: '65%' } },
-    { id: 15, text: "The world needs more people like you", category: "deep", position: { top: '45%', right: '30%' } }
+    { id: 1, text: "100 cadets on one campus and we still ended up talking every day", category: "deep", position: { top: '15%', left: '20%' } },
+    { id: 2, text: "You really do romanticize mountains too much", category: "funny", position: { top: '25%', right: '15%' } },
+    { id: 3, text: "Meghalaya plans somehow still sound real", category: "calm", position: { top: '40%', left: '10%' } },
+    { id: 4, text: "Still feels funny how everything started with Tu Bengali h kya?", category: "funny", position: { top: '60%', right: '25%' } },
+    { id: 5, text: "Some conversations naturally became part of memory", category: "deep", position: { top: '35%', left: '60%' } },
+    { id: 6, text: "Voice notes became normal way too quickly", category: "calm", position: { top: '70%', left: '30%' } },
+    { id: 7, text: "You made everyone around you comfortable so easily", category: "deep", position: { top: '20%', left: '70%' } },
+    { id: 8, text: "NCC Best Cadet runner-up — sneakily sharp about it", category: "funny", position: { top: '80%', right: '20%' } },
+    { id: 9, text: "You definitely would stop for chai before reaching any destination", category: "funny", position: { top: '50%', left: '40%' } },
+    { id: 10, text: "April 20 — late note, sincere intention", category: "calm", position: { top: '65%', right: '10%' } },
+    { id: 11, text: "You somehow made random stairs feel memorable", category: "deep", position: { top: '85%', left: '50%' } },
+    { id: 12, text: "Agartala’s stuck with you — lucky them", category: "funny", position: { top: '30%', right: '40%' } },
+    { id: 13, text: "Proper bye still pending on better terms", category: "deep", position: { top: '10%', left: '45%' } },
+    { id: 14, text: "Holy Cross, third year — finish strong, flex softly", category: "calm", position: { top: '75%', left: '65%' } },
+    { id: 15, text: "Comfortable silence counts as hanging out", category: "deep", position: { top: '45%', right: '30%' } }
   ];
 
   const categories = [

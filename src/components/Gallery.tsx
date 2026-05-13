@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Image, X, Heart, BookOpen, Coffee, Sparkles, Zap, Home, User, Download, Share2, Camera, Star } from 'lucide-react';
+import { CardSpotlight } from './ui/CardSpotlight';
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
@@ -15,199 +16,158 @@ const Gallery = () => {
     return () => clearTimeout(timer);
   }, []);
 
-const galleryItems = [
-  {
-    id: 1,
-    title: 'Shagufta\'s Smile',
-    description: 'That genuine smile that lights up any room - captured in a moment of pure joy',
-    category: 'personal',
-    image: 'https://i.postimg.cc/MK0r0N7G/IMG-20250612-WA0039.jpg',
-    quote: 'Your smile is your signature - authentic and beautiful',
-    isPersonal: true,
-    location: 'Patna',
-    date: '2025'
-  },
-  {
-    id: 2,
-    title: 'Study Mode Activated',
-    description: 'Deep in concentration, working on electrical engineering concepts - this is you in your element',
-    category: 'personal',
-    image: 'https://i.postimg.cc/bvV5DnQH/IMG-20250612-WA0034.jpg',
-    quote: 'Intelligence in action is the most beautiful thing to witness',
-    isPersonal: true,
-    location: 'Jamia Millia Islamia',
-    date: '2024'
-  },
-  {
-    id: 3,
-    title: 'Quiet Contemplation',
-    description: 'A peaceful moment of reflection - you have this beautiful way of finding calm in chaos',
-    category: 'personal',
-    image: 'https://i.postimg.cc/7P2Rhfb0/IMG-20250612-WA0038.jpg',
-    quote: 'In quiet moments, we find our truest selves',
-    isPersonal: true,
-    location: 'Home',
-    date: '2024'
-  },
-  {
-    id: 4,
-    title: 'Engineering Dreams',
-    description: 'Working with circuits and calculations - building the future one equation at a time',
-    category: 'personal',
-    image: 'https://i.postimg.cc/VLPVCmbT/IMG-20250612-WA0035.jpg',
-    quote: 'Every great engineer starts with curiosity and determination',
-    isPersonal: true,
-    location: 'University Lab',
-    date: '2024'
-  },
-  {
-    id: 5,
-    title: 'Festival Vibes',
-    description: 'Dressed in colors and tradition - this day was full of culture, smiles, and celebration',
-    category: 'personal',
-    image: 'https://i.postimg.cc/xTQ6d5wV/IMG-20250612-WA0044.jpg',
-    quote: 'Life is a celebration, and you’re the brightest part of it',
-    isPersonal: true,
-    location: 'Cultural Fest',
-    date: '2025'
-  },
-  {
-    id: 6,
-    title: 'Evening Elegance',
-    description: 'That golden hour glow and confidence in your eyes - truly captivating',
-    category: 'personal',
-    image: 'https://i.postimg.cc/NjpJSXPq/IMG-20250612-WA0040.jpg',
-    quote: 'There’s something powerful in simply being yourself',
-    isPersonal: true,
-    location: 'Evening Walk',
-    date: '2025'
-  },
-  {
-    id: 7,
-    title: 'Sisterhood Snap',
-    description: 'That candid moment with your best friend - laughter that feels like home',
-    category: 'personal',
-    image: 'https://i.postimg.cc/Fz3CBnwD/IMG-20250612-WA0037.jpg',
-    quote: 'Friendship is not just a bond, it’s a beautiful rhythm of souls',
-    isPersonal: true,
-    location: 'Botanical Garden',
-    date: '2025'
-  },
-  {
-    id: 8,
-    title: 'Power in Pink',
-    description: 'Bold and beautiful - this picture radiates your strength and grace effortlessly',
-    category: 'personal',
-    image: 'https://i.postimg.cc/vmZjZh6Z/IMG-20250612-WA0033.jpg',
-    quote: 'Elegance is when the inside is as beautiful as the outside',
-    isPersonal: true,
-    location: 'Campus Grounds',
-    date: '2025'
-  },
-  {
-    id: 9,
-    title: 'Candid in Confidence',
-    description: 'Captured in motion - this one says so much without a single word',
-    category: 'personal',
-    image: 'https://i.postimg.cc/mD06VGpP/IMG-20250612-WA0036.jpg',
-    quote: 'Confidence isn’t loud, it’s calm and assured like this moment',
-    isPersonal: true,
-    location: 'Late Night Campus',
-    date: '2025'
-  },
-  {
-    id: 10,
-    title: 'College Chronicles',
-    description: 'One of those unforgettable group moments from your college journey',
-    category: 'personal',
-    image: 'https://i.postimg.cc/tCz2nPbZ/IMG-20250612-WA0046.jpg',
-    quote: 'Memories are made of laughter, friendship, and a shared future',
-    isPersonal: true,
-    location: 'Faculty of Engineering, JMI',
-    date: '2025'
-  },
-
-    
-    // Inspirational Images
+  const galleryItems = [
+    {
+      id: 1,
+      title: 'Bhalukpong mornings',
+      description:
+        'That sleepy river-town silence before the batch fully woke up. Felt like the mountains were still stretching too.',
+      category: 'personal',
+      image: 'https://res.cloudinary.com/dmg6ncii3/image/upload/v1778695843/WhatsApp_Image_2026-05-13_at_11.39.48_PM_xhaqgg.jpg',
+      quote: 'Still looks like the kind of road where conversations accidentally start.',
+      isPersonal: true,
+      location: 'Bhalukpong',
+      date: 'Oct 2025',
+    },
+    {
+      id: 2,
+      title: 'Agartala NCC complex',
+      description:
+        'Discipline outside, chaos inside probably. Also somehow explains the Best Cadet energy.',
+      category: 'personal',
+      image: 'https://res.cloudinary.com/dmg6ncii3/image/upload/v1778695441/WhatsApp_Image_2026-05-13_at_11.27.02_PM_2_sajjmj.jpg',
+      quote: 'You really do look like someone who’d win medals and still laugh through parade practice.',
+      isPersonal: true,
+      location: 'Agartala',
+      date: '2025',
+    },
+    {
+      id: 3,
+      title: 'Traditional day',
+      description:
+        'The kind of photo that instantly tells you someone grew up around stories, culture, and loud festivals.',
+      category: 'personal',
+      image: 'https://res.cloudinary.com/dmg6ncii3/image/upload/v1778695441/WhatsApp_Image_2026-05-13_at_11.27.02_PM_awxdtl.jpg',
+      quote: 'This honestly feels straight out of one of your Tripura stories.',
+      isPersonal: true,
+      location: 'Tripura',
+      date: '2025',
+    },
+    {
+      id: 4,
+      title: 'Cadet pride',
+      description:
+        'Everyone standing serious for the frame while the energy still feels warm and slightly chaotic.',
+      category: 'personal',
+      image: 'https://res.cloudinary.com/dmg6ncii3/image/upload/v1778695443/WhatsApp_Image_2026-05-13_at_11.15.39_PM_qf150e.jpg',
+      quote: 'Runner-up Best Cadet still sounds unnecessarily cool.',
+      isPersonal: true,
+      location: 'Agartala',
+      date: '2025',
+    },
     {
       id: 5,
-      title: 'Quiet Library Corner',
-      description: 'A peaceful reading nook with warm lighting - the kind of space where you find your calm',
-      category: 'peaceful',
-      image: 'https://images.pexels.com/photos/1370295/pexels-photo-1370295.jpeg?auto=compress&cs=tinysrgb&w=800',
-      quote: 'Every introvert needs a sanctuary like this',
-      isPersonal: false
+      title: '100 cadets later',
+      description:
+        'One giant batch, random states, muddy shoes, river plans, and somehow people still finding their people.',
+      category: 'memories',
+      image: 'https://res.cloudinary.com/dmg6ncii3/image/upload/v1778695443/WhatsApp_Image_2026-05-13_at_11.27.19_PM_vzocsd.jpg',
+      quote: 'Still crazy that all of this started because of one course.',
+      isPersonal: true,
+      location: 'NIMAS',
+      date: 'Oct 2025',
     },
     {
       id: 6,
-      title: 'Circuit Board Poetry',
-      description: 'Circuit boards and blueprints - where logic meets creativity, just like your mind',
-      category: 'academic',
-      image: 'https://images.pexels.com/photos/163100/circuit-circuit-board-resistor-computer-163100.jpeg?auto=compress&cs=tinysrgb&w=800',
-      quote: 'Building the future, one connection at a time',
-      isPersonal: false
+      title: 'River exhaustion club',
+      description:
+        'Sand everywhere, no energy left, nobody willing to move first.',
+      category: 'memories',
+      image: 'https://res.cloudinary.com/dmg6ncii3/image/upload/v1778695442/WhatsApp_Image_2026-05-13_at_11.15.41_PM_dd6vxk.jpg',
+      quote: 'Adventure sports but everyone ends up looking defeated by lunchtime.',
+      isPersonal: true,
+      location: 'River bank',
+      date: 'Oct 2025',
     },
     {
       id: 7,
-      title: 'Evening Tea Ritual',
-      description: 'The simple pleasure of tea time - moments of mindfulness in a busy world',
-      category: 'comfort',
-      image: 'https://images.pexels.com/photos/1638280/pexels-photo-1638280.jpeg?auto=compress&cs=tinysrgb&w=800',
-      quote: 'Some of life\'s best moments happen over a cup of tea',
-      isPersonal: false
+      title: 'Raft-day silence',
+      description:
+        'Five minutes before someone inevitably splashed water at another raft for no reason.',
+      category: 'personal',
+      image: 'https://res.cloudinary.com/dmg6ncii3/image/upload/v1778695442/WhatsApp_Image_2026-05-13_at_11.15.41_PM_1_x7meww.jpg',
+      quote: 'Nobody actually looked calm near the river.',
+      isPersonal: true,
+      location: 'Bhalukpong river',
+      date: 'Oct 2025',
     },
     {
       id: 8,
-      title: 'Books & Dreams',
-      description: 'Stacked books waiting to be explored - each one a new world to discover',
+      title: 'Main-character mountains',
+      description:
+        'Arunachal casually looking cinematic while everyone pretended not to take too many photos.',
       category: 'peaceful',
-      image: 'https://images.pexels.com/photos/1370295/pexels-photo-1370295.jpeg?auto=compress&cs=tinysrgb&w=800',
-      quote: 'Books are the quietest and most constant of friends',
-      isPersonal: false
+      image: 'https://res.cloudinary.com/dmg6ncii3/image/upload/v1778695443/WhatsApp_Image_2026-05-13_at_11.15.42_PM_dygcat.jpg',
+      quote: 'Still unfair that the background looked fake in real life too.',
+      isPersonal: false,
+      location: 'Arunachal Pradesh',
+      date: 'Oct 2025',
     },
     {
       id: 9,
-      title: 'Patna Sunsets',
-      description: 'Golden hour over familiar streets - there\'s something special about home',
-      category: 'memories',
-      image: 'https://i.postimg.cc/8cdBWFFz/beautiful-sunset-view-ganga-river-260nw-1822326641.webp',
-      quote: 'Home is where your story begins',
-      isPersonal: false
+      title: 'Camp-side afternoons',
+      description:
+        'Plastic chairs, drying clothes, random people disappearing into naps after rafting.',
+      category: 'comfort',
+      image: 'https://res.cloudinary.com/dmg6ncii3/image/upload/v1778695443/WhatsApp_Image_2026-05-13_at_11.15.40_PM_rpt5lt.jpg',
+      quote: 'This feels exactly like the kind of afternoon nobody planned but everyone remembers.',
+      isPersonal: true,
+      location: 'NIMAS campus',
+      date: 'Oct 2025',
     },
     {
       id: 10,
-      title: 'Study Space Serenity',
-      description: 'A well-organized desk with soft lighting - where focus meets comfort',
-      category: 'academic',
-      image: 'https://images.pexels.com/photos/4050315/pexels-photo-4050315.jpeg?auto=compress&cs=tinysrgb&w=800',
-      quote: 'Great minds need great spaces to flourish',
-      isPersonal: false
+      title: 'Blue jersey day',
+      description:
+        'Peak camp energy: sun too bright, shoes full of sand, and everyone acting cooler than they felt.',
+      category: 'personal',
+      image: 'https://res.cloudinary.com/dmg6ncii3/image/upload/v1778695442/WhatsApp_Image_2026-05-13_at_11.15.41_PM_1_x7meww.jpg',
+      quote: 'You definitely looked like you belonged near mountains more than classrooms.',
+      isPersonal: true,
+      location: 'River bank',
+      date: 'Oct 2025',
     },
     {
       id: 11,
-      title: 'Cozy Reading Nook',
-      description: 'Soft blankets and warm light - the perfect spot for getting lost in stories',
-      category: 'comfort',
-      image: 'https://images.pexels.com/photos/1370295/pexels-photo-1370295.jpeg?auto=compress&cs=tinysrgb&w=800',
-      quote: 'Comfort is not a luxury, it\'s a necessity for the soul',
-      isPersonal: false
+      title: 'Temple-town evening',
+      description:
+        'One of those chaotic evenings where nobody knew the plan but everyone kept walking together anyway.',
+      category: 'memories',
+      image: 'https://res.cloudinary.com/dmg6ncii3/image/upload/v1778695443/WhatsApp_Image_2026-05-13_at_11.15.42_PM_dygcat.jpg',
+      quote: 'This whole batch somehow turned every random outing into an event.',
+      isPersonal: true,
+      location: 'Temple market',
+      date: '2025',
     },
     {
       id: 12,
-      title: 'Jamia Campus Vibes',
-      description: 'University corridors filled with dreams and possibilities',
-      category: 'memories',
-      image: 'https://i.postimg.cc/MHs0tCYC/images.jpg',
-      quote: 'Every hallway holds a thousand dreams',
-      isPersonal: false
-    }
+      title: 'The mountain feeling',
+      description:
+        'No dramatic speech here. Just river water, cold air, and people slowly becoming memories.',
+      category: 'peaceful',
+      image: 'https://res.cloudinary.com/dmg6ncii3/image/upload/v1778695441/WhatsApp_Image_2026-05-13_at_11.13.11_PM_uebuly.jpg',
+      quote: 'Some places really do stay in the head longer than expected.',
+      isPersonal: false,
+      location: 'Arunachal',
+      date: 'Oct 2025',
+    },
   ];
 
   const categories = [
     { id: 'all', label: 'All Images', icon: Image, color: 'purple' },
-    { id: 'personal', label: 'Shagufta', icon: User, color: 'rose' },
+    { id: 'personal', label: 'Luckyverse', icon: User, color: 'rose' },
     { id: 'peaceful', label: 'Peaceful', icon: Heart, color: 'blue' },
-    { id: 'academic', label: 'Academic', icon: Zap, color: 'indigo' },
+    { id: 'academic', label: 'Camp notes', icon: Zap, color: 'indigo' },
     { id: 'comfort', label: 'Comfort', icon: Coffee, color: 'pink' },
     { id: 'memories', label: 'Memories', icon: Home, color: 'green' }
   ];
@@ -227,7 +187,7 @@ const galleryItems = [
     console.log(`Downloading: ${title}`);
   };
 
-  const shareImage = (item: any) => {
+  const shareImage = (item: { title: string; description: string }) => {
     if (navigator.share) {
       navigator.share({
         title: item.title,
@@ -253,7 +213,7 @@ const galleryItems = [
             📸
           </motion.div>
           <p className="text-purple-600 font-dancing text-2xl">
-            Preparing your visual journey...
+            Opening the folder…
           </p>
         </div>
       </motion.div>
@@ -278,7 +238,7 @@ const galleryItems = [
             Visual Stories
           </h1>
           <p className="text-gray-600 mb-8">
-            A collection of moments, memories, and spaces that celebrate you ✨
+            Preserved atmosphere — roads, nights, water, chai. Swap in your own photos whenever.
           </p>
           
           {/* View Mode Toggle */}
@@ -333,11 +293,12 @@ const galleryItems = [
         {/* Gallery Grid */}
         <motion.div
           layout
-          className={`grid gap-6 ${
-            viewMode === 'grid' 
-              ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' 
+          className={`grid gap-6 [transform-style:preserve-3d] ${
+            viewMode === 'grid'
+              ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
               : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4'
           }`}
+          style={{ perspective: 'min(90vw, 1200px)' }}
         >
           <AnimatePresence>
             {filteredItems.map((item, index) => (
@@ -347,9 +308,15 @@ const galleryItems = [
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className={`bg-white/60 backdrop-blur-sm rounded-2xl overflow-hidden shadow-xl border border-white/40 cursor-pointer group relative ${
+                transition={{ delay: index * 0.1, type: 'spring', stiffness: 280, damping: 24 }}
+                whileHover={{
+                  y: -10,
+                  scale: 1.02,
+                  rotateX: 1.5,
+                  rotateY: index % 2 === 0 ? -2 : 2,
+                  boxShadow: '0 24px 48px rgba(124,58,237,0.15)',
+                }}
+                className={`bg-white/60 backdrop-blur-sm rounded-2xl overflow-hidden shadow-xl border border-white/40 cursor-pointer group relative [transform-style:preserve-3d] ${
                   viewMode === 'masonry' && index % 3 === 1 ? 'row-span-2' : ''
                 } ${item.isPersonal ? 'ring-2 ring-rose-300 ring-opacity-50' : ''}`}
               >
@@ -357,7 +324,7 @@ const galleryItems = [
                 {item.isPersonal && (
                   <div className="absolute top-3 left-3 z-10 bg-rose-500 text-white px-2 py-1 rounded-full text-xs font-medium flex items-center space-x-1">
                     <User size={12} />
-                    <span>Shagufta</span>
+                    <span>Luckyverse</span>
                   </div>
                 )}
 
@@ -517,7 +484,7 @@ const galleryItems = [
                           {item.isPersonal && (
                             <div className="absolute top-4 left-4 bg-rose-500 text-white px-3 py-1 rounded-full text-sm font-medium flex items-center space-x-2">
                               <User size={16} />
-                              <span>Personal Photo</span>
+                              <span>Camp-era frame</span>
                             </div>
                           )}
                         </div>
@@ -609,10 +576,10 @@ const galleryItems = [
           <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-6 max-w-2xl mx-auto">
             <BookOpen className="mx-auto mb-4 text-purple-500" size={24} />
             <p className="text-gray-600 italic mb-2">
-              "Every image tells a story, and every story connects us to something beautiful"
+              These are placeholders for mood — replace with your real frames when you want.
             </p>
             <p className="text-purple-600 font-dancing text-lg">
-              Your personal photos are marked with a special badge ⭐
+              Luckyverse-tagged ones are the “this chapter” pile ⭐
             </p>
           </div>
         </motion.div>
